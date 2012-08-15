@@ -50,6 +50,15 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Memcached
 
+## What's Next
+
+Once the virtual machine is built, you generally want to configure Git:
+
+    git config --global user.name "John Doe"
+    git config --global user.email johndoe@example.com
+
+set up your SSH keys, and clone your fork.
+
 ## Virtual Machine Management
 
 Once you are done just log out with `^D` and suspend the virtual machine
