@@ -26,7 +26,7 @@ Building the virtual machine is this easy:
 
 That's it.
 
-This initial setup takes about 3 minutes in my MacBook Air. Once the installation has finished, you can access the virtual machine with
+If the base box is not present that command fetches it first. The setup itself takes about 3 minutes in my MacBook Air. After the installation has finished, you can access the virtual machine with
 
     vagrant ssh
 
