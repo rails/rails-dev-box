@@ -16,12 +16,6 @@ We use [Vagrant](http://vagrantup.com) to build and provision the virtual machin
 
     gem install vagrant
 
-Please install the "precise32" base box if you don't have it already (`vagrant box list` would tell you):
-
-    vagrant box add precise32 http://files.vagrantup.com/precise32.box
-
-That's done only once.
-
 ## How To Build The Virtual Machine
 
 Building the virtual machine is this easy:
