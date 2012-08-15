@@ -1,10 +1,6 @@
 Vagrant::Config.run do |config|
-  # Run:
-  #
-  #   vagrant box add precise32 http://files.vagrantup.com/precise32.box
-  #
-  # if needed (you need that only once).
   config.vm.box = 'precise32'
+  config.vm.box_url = 'http://files.vagrantup.com/precise32.box'
 
   config.vm.forward_port 3000, 3000
 
