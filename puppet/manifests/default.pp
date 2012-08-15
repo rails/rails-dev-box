@@ -39,8 +39,8 @@ class install_mysql {
   }
 
   database_user { 'rails@localhost':
-    ensure        => present,
-    require       => Class['mysql::server'] 
+    ensure  => present,
+    require => Class['mysql::server'] 
   }
 
   database_grant { ['rails@localhost/activerecord_unittest', 'rails@localhost/activerecord_unittest2']:
@@ -70,7 +70,7 @@ class install_postgres {
     require => Class['postgresql::server'] 
   }
 
-  package { "libpq-dev":
+  package { 'libpq-dev':
     ensure => installed
   }
 }
