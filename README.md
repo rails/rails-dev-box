@@ -6,15 +6,9 @@ This project automates the setup of a development environment for Ruby on Rails 
 
 ## Requirements
 
-### VirtualBox
+* [VirtualBox](https://www.virtualbox.org)
 
-The virtual machine runs on top of [VirtualBox](https://www.virtualbox.org).
-
-### Vagrant
-
-We use [Vagrant](http://vagrantup.com) to build and provision the virtual machine:
-
-    gem install vagrant
+* [Vagrant](http://vagrantup.com)
 
 ## How To Build The Virtual Machine
 
