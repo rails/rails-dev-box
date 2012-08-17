@@ -14,15 +14,18 @@ This project automates the setup of a development environment for Ruby on Rails 
 
 Building the virtual machine is this easy:
 
-    git clone https://github.com/rails/rails-dev-box.git
-    cd rails-dev-box
-    vagrant up
+    host $ git clone https://github.com/rails/rails-dev-box.git
+    host $ cd rails-dev-box
+    host $ vagrant up
 
 That's it.
 
 If the base box is not present that command fetches it first. The setup itself takes about 3 minutes in my MacBook Air. After the installation has finished, you can access the virtual machine with
 
-    vagrant ssh
+    host $ vagrant ssh
+    Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+    ...
+    vagrant@rails-dev-box:~$
 
 Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer.
 
@@ -44,37 +47,51 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Memcached
 
-## What's Next
+## Recommended Workflow
 
-The first time you log into the box you generally want to configure Git:
+The recommended workflow is
 
-    git config --global user.name "John Doe"
-    git config --global user.email johndoe@example.com
+* edit in the host computer and
 
-set up your SSH keys, and clone your fork.
+* test within the virtual machine.
+
+Just clone your Rails fork in the very directory of the Rails development box in the host computer:
+
+    host $ ls
+    README.md   Vagrantfile puppet
+    host $ git clone git@github.com:<your username>/rails.git
+
+Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
+
+    vagrant@rails-dev-box:~$ ls /vagrant
+    puppet  rails  README.md  Vagrantfile
+
+so we are ready to go to edit in the host, and test in the virtual machine.
+
+This workflow is convenient because in the host computer one normally has his editor of choice fine-tuned, Git configured, and SSH keys in place.
 
 ## Virtual Machine Management
 
 When done just log out with `^D` and suspend the virtual machine
 
-    vagrant suspend
+    host $ vagrant suspend
 
 then, resume to hack again
 
-    vagrant resume
+    host $ vagrant resume
 
 Run
 
-    vagrant halt
+    host $ vagrant halt
 
 to shutdown the virtual machine, and
 
-    vagrant up
+    host $ vagrant up
 
 to boot it again.
 
 And to completely wipe the virtual machine from the disk **destroying all its contents**:
 
-    vagrant destroy # DANGER: all is gone
+    host $ vagrant destroy # DANGER: all is gone
 
 Please check the [Vagrant documentation](http://vagrantup.com/v1/docs/index.html) for more information on Vagrant.
