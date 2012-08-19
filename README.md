@@ -90,7 +90,11 @@ to shutdown the virtual machine, and
 
 to boot it again.
 
-And to completely wipe the virtual machine from the disk **destroying all its contents**:
+You can find out the state of a virtual machine anytime by invoking
+
+    host $ vagrant status
+
+Finally, to completely wipe the virtual machine from the disk **destroying all its contents**:
 
     host $ vagrant destroy # DANGER: all is gone
 
