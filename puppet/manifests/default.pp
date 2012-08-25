@@ -1,5 +1,3 @@
-$ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
-
 # Make sure apt-get -y update runs before anything else.
 stage { 'preinstall':
   before => Stage['main']
@@ -32,21 +30,6 @@ class install_mysql {
     config_hash => { 'root_password' => '' }
   }
 
-  database { $ar_databases:
-    ensure  => present,
-    charset => 'utf8',
-    require => Class['mysql::server'] 
-  }
-
-  database_user { 'rails@localhost':
-    ensure  => present,
-    require => Class['mysql::server'] 
-  }
-
-  database_grant { ['rails@localhost/activerecord_unittest', 'rails@localhost/activerecord_unittest2']:
-    privileges => ['all'],
-    require    => Database_user['rails@localhost']
-  }
 
   package { 'libmysqlclient15-dev':
     ensure => installed
@@ -58,17 +41,6 @@ class install_postgres {
   class { 'postgresql': }
 
   class { 'postgresql::server': }
-
-  pg_database { $ar_databases:
-    ensure   => present,
-    encoding => 'UTF8',
-    require  => Class['postgresql::server']
-  }
-
-  pg_user { 'rails':
-    ensure  => present,
-    require => Class['postgresql::server'] 
-  }
 
   pg_user { 'vagrant':
     ensure    => present,
@@ -114,5 +86,23 @@ class install_nokogiri_dependencies {
   }
 }
 class { 'install_nokogiri_dependencies': }
+
+class install_rbenv {
+  $user = 'vagrant'
+  $home = "/home/${user}"
+
+  rbenv::install { 'vagrant':
+    group => $user
+    home  => $home
+  }
+
+  rbenv::compile { "1.9.3-p370":
+    user => $user,
+    home => $home,
+  }
+
+  exec
+}
+class { 'install_rbenv': }
 
 class { 'memcached': }

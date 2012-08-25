@@ -1,0 +1,8 @@
+#
+# This is a shell fragment that initializes rbenv, if it
+# has not been inited yet. Managed by puppet - DO NOT EDIT
+#
+if ! echo $PATH | grep -q rbenv; then
+  export PATH="<%= @root_path %>/bin:$PATH"
+  eval "$(rbenv init -)"
+fi

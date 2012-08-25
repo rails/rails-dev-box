@@ -1,8 +1,8 @@
-# A Virtual Machine for Ruby on Rails Core Development
+# A Virtual Machine for me based on Ruby on Rails Core Development devbox
 
 ## Introduction
 
-This project automates the setup of a development environment for Ruby on Rails core development. This is the easiest way to build a box with everything ready to start hacking on your pull request, all in an isolated virtual machine.
+This project automates the setup of a development environment for Ruby on Rails development. This is the easiest way to build a box with everything ready to start hacking on your pull request, all in an isolated virtual machine.
 
 ## Requirements
 
@@ -14,8 +14,8 @@ This project automates the setup of a development environment for Ruby on Rails 
 
 Building the virtual machine is this easy:
 
-    host $ git clone https://github.com/rails/rails-dev-box.git
-    host $ cd rails-dev-box
+    host $ git clone https://github.com/brennovich/brotodevbox.git
+    host $ cd brotodevbox
     host $ vagrant up
 
 That's it.
@@ -33,15 +33,15 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Git
 
-* Ruby 1.9.3
+* Ruby 1.9.3 [Ubuntu package]
+
+* rbenv
 
 * Bundler
 
 * SQLite3, MySQL, and Postgres
 
 * System dependencies for nokogiri, sqlite3, mysql, mysql2, and pg
-
-* Databases and users needed to run the Active Record test suite
 
 * therubyracer
 
@@ -63,7 +63,7 @@ Just clone your Rails fork in the very directory of the Rails development box in
 
 Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
 
-    vagrant@rails-dev-box:~$ ls /vagrant
+    vagrant@brotodevbox:~$ ls /vagrant
     puppet  rails  README.md  Vagrantfile
 
 so we are ready to go to edit in the host, and test in the virtual machine.
