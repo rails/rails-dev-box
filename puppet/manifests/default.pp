@@ -59,30 +59,11 @@ class install_postgres {
 class { 'install_postgres': }
 
 class install_core_packages {
-  package { ['build-essential', 'zsh', 'vim']:
+  package { ['build-essential', 'zsh', 'vim', 'ruby1.9.3']:
     ensure => installed
   }
 }
 class { 'install_core_packages': }
-
-class install_ruby {
-  package { 'ruby1.9.3':
-    ensure => installed
-  }
-
-  exec { '/usr/bin/gem install bundler --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem list | grep bundler',
-    user    => 'root',
-    require => Package['ruby1.9.3']
-  }
-
-  exec { '/usr/bin/gem install therubyracer --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem list | grep therubyracer',
-    user    => 'root',
-    require => [Package['ruby1.9.3'], Package['build-essential']]
-  }
-}
-class { 'install_ruby': }
 
 class install_nokogiri_dependencies {
   package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
@@ -110,13 +91,8 @@ class setup_env {
     user => $user,
     path => "${home}/bin:${home}/.rbenv/shims:/bin:/usr/bin"
   }
-
-  # Setup zsh
-  exec { "git clone https://github.com/brennovich/dotfiles.git ${home} && chsh -s /bin/zsh":
-    user => $user,
-    path => ['/usr/bin', '/usr/sbin'],
-    require => package['zsh', 'git-core']
-  }
+  # TODO dotfiles
+  # TODO zsh
 }
 class { 'setup_env': }
 
