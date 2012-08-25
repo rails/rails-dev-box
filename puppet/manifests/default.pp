@@ -59,7 +59,7 @@ class install_postgres {
 class { 'install_postgres': }
 
 class install_core_packages {
-  package { ['build-essential', 'zsh', 'vim', 'ruby1.9.3']:
+  package { ['build-essential', 'vim', 'ruby1.9.3']:
     ensure => installed
   }
 }
@@ -89,10 +89,11 @@ class { 'install_rbenv': }
 class setup_env {
   exec { "echo 'gem: --no-ri --no-rdoc' > /home/vagrant/.gemrc":
     user => $user,
+    unless => "ls .gemrc",
     path => "${home}/bin:${home}/.rbenv/shims:/bin:/usr/bin"
   }
   # TODO dotfiles
-  # TODO zsh
+  class { 'ohmyzsh': }
 }
 class { 'setup_env': }
 
