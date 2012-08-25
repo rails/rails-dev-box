@@ -1,3 +1,6 @@
+$user = 'vagrant'
+$home = '/home/vagrant'
+
 # Make sure apt-get -y update runs before anything else.
 stage { 'preinstall':
   before => Stage['main']
@@ -45,6 +48,7 @@ class install_postgres {
   pg_user { 'vagrant':
     ensure    => present,
     superuser => true,
+    password  => 'vagrant',
     require   => Class['postgresql::server']
   }
 
@@ -55,7 +59,7 @@ class install_postgres {
 class { 'install_postgres': }
 
 class install_core_packages {
-  package { ['build-essential']:
+  package { ['build-essential', 'zsh', 'vim']:
     ensure => installed
   }
 }
@@ -87,26 +91,31 @@ class install_nokogiri_dependencies {
 }
 class { 'install_nokogiri_dependencies': }
 
-class setup_env {
-  $user = 'vagrant'
-  $home = '/home/vagrant'
-
-  exec { "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc":
-    user => $user
-  }
+class install_rbenv {
 
   rbenv::install { 'vagrant':
     group => $user,
-    home  => $home
+    home => $home
   }
 
   rbenv::compile { '1.9.3-p194':
     user => $user,
     home => $home
   }
+}
+class { 'install_rbenv': }
 
-  exec { 'rbenv global 1.9.3-p194 && gem install bundle':
-    user => $user
+class setup_env {
+  exec { "echo 'gem: --no-ri --no-rdoc' > /home/vagrant/.gemrc":
+    user => $user,
+    path => "${home}/bin:${home}/.rbenv/shims:/bin:/usr/bin"
+  }
+
+  # Setup zsh
+  exec { "git clone https://github.com/brennovich/dotfiles.git ${home} && chsh -s /bin/zsh":
+    user => $user,
+    path => ['/usr/bin', '/usr/sbin'],
+    require => package['zsh', 'git-core']
   }
 }
 class { 'setup_env': }
