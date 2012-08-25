@@ -55,7 +55,7 @@ class install_postgres {
 class { 'install_postgres': }
 
 class install_core_packages {
-  package { ['build-essential', 'git-core']:
+  package { ['build-essential']:
     ensure => installed
   }
 }
@@ -87,20 +87,28 @@ class install_nokogiri_dependencies {
 }
 class { 'install_nokogiri_dependencies': }
 
-class install_rbenv {
+class setup_env {
   $user = 'vagrant'
-  $home = "/home/vagrant"
+  $home = '/home/vagrant'
+
+  exec { "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc":
+    user => $user
+  }
 
   rbenv::install { 'vagrant':
     group => $user,
     home  => $home
   }
 
-  rbenv::compile { "1.9.3-p370":
+  rbenv::compile { '1.9.3-p194':
     user => $user,
     home => $home
   }
+
+  exec { 'rbenv global 1.9.3-p194 && gem install bundle':
+    user => $user
+  }
 }
-class { 'install_rbenv': }
+class { 'setup_env': }
 
 class { 'memcached': }
