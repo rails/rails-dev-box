@@ -89,19 +89,17 @@ class { 'install_nokogiri_dependencies': }
 
 class install_rbenv {
   $user = 'vagrant'
-  $home = "/home/${user}"
+  $home = "/home/vagrant"
 
   rbenv::install { 'vagrant':
-    group => $user
+    group => $user,
     home  => $home
   }
 
   rbenv::compile { "1.9.3-p370":
     user => $user,
-    home => $home,
+    home => $home
   }
-
-  exec
 }
 class { 'install_rbenv': }
 
