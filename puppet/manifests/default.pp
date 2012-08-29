@@ -11,6 +11,7 @@ class apt_get_update {
     user => 'root'
   }
 }
+
 class { 'apt_get_update':
   stage => preinstall
 }
