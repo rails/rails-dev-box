@@ -83,8 +83,16 @@ class install_postgres {
 class { 'install_postgres': }
 
 class install_core_packages {
-  package { ['build-essential', 'git-core']:
-    ensure => installed
+  if !defined(Package['build-essential']) {
+    package { 'build-essential':
+      ensure => installed
+    }
+  }
+
+  if !defined(Package['git-core']) {
+    package { 'git-core':
+      ensure => installed
+    }
   }
 }
 class { 'install_core_packages': }
