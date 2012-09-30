@@ -43,7 +43,7 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Databases and users needed to run the Active Record test suite
 
-* therubyracer
+* Node.js for the asset pipeline
 
 * Memcached
 

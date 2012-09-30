@@ -107,12 +107,6 @@ class install_ruby {
     user    => 'root',
     require => Package['ruby1.9.3']
   }
-
-  exec { '/usr/bin/gem install therubyracer --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem list | grep therubyracer',
-    user    => 'root',
-    require => [Package['ruby1.9.3'], Package['build-essential']]
-  }
 }
 class { 'install_ruby': }
 
@@ -122,5 +116,12 @@ class install_nokogiri_dependencies {
   }
 }
 class { 'install_nokogiri_dependencies': }
+
+class install_execjs_runtime {
+  package { 'nodejs':
+    ensure => installed
+  }
+}
+class { 'install_execjs_runtime': }
 
 class { 'memcached': }
