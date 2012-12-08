@@ -44,7 +44,7 @@ on the Internet.
     class {'postgresql::server':
         listen => ['192.168.0.1', ],
         port   => 5432,
-        acls   => ['host all all 192.168.0.2/32 md5', ],
+        acl   => ['host all all 192.168.0.2/32 md5', ],
     }
 
 Refer to the [pg_hba.conf docs](http://www.postgresql.org/docs/devel/static/auth-pg-hba-conf.html) for
