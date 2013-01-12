@@ -125,3 +125,5 @@ class install_execjs_runtime {
 class { 'install_execjs_runtime': }
 
 class { 'memcached': }
+
+class { 'rbenv': }

@@ -66,6 +66,10 @@ Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
     vagrant@rails-dev-box:~$ ls /vagrant
     puppet  rails  README.md  Vagrantfile
 
+Rails development box provided [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build). If you need to develop with specified version of ruby:
+
+   vagrant@rails-dev-box:~$ rbenv install 1.9.3-p327
+
 so we are ready to go to edit in the host, and test in the virtual machine.
 
 This workflow is convenient because in the host computer one normally has his editor of choice fine-tuned, Git configured, and SSH keys in place.
