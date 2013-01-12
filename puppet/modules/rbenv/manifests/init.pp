@@ -7,7 +7,8 @@ class rbenv {
   package {
     [
      'bison',
-     'autoconf'
+     'autoconf',
+     'git'
     ] :
       ensure => installed;
   }
@@ -28,7 +29,8 @@ class rbenv {
     require => [
       Package[
         'bison',
-        'autoconf'
+        'autoconf',
+        'git'
       ],
     ];
   }
