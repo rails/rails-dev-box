@@ -1,17 +1,48 @@
 $ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
 
-# Make sure apt-get -y update runs before anything else.
-stage { 'preinstall':
+stage { 'ubuntu_packages_setup':
   before => Stage['main']
 }
 
-class apt_get_update {
-  exec { '/usr/bin/apt-get -y update':
+class apt_get_update1 {
+  exec { 'apt_get_update_exec1':
+    command => '/usr/bin/apt-get -y update',
+    user    => 'root'
+  }
+}
+class { 'apt_get_update1':
+  stage => ubuntu_packages_setup
+}
+
+class install_python_software_properties {
+  package { 'python-software-properties':
+    ensure => installed
+  }
+}
+class { 'install_python_software_properties':
+  stage   => ubuntu_packages_setup,
+  require => Class['apt_get_update1']
+}
+
+class apt_add_repository {
+  exec { '/usr/bin/apt-add-repository ppa:brightbox/ruby-ng':
     user => 'root'
   }
 }
-class { 'apt_get_update':
-  stage => preinstall
+class { 'apt_add_repository':
+  stage   => ubuntu_packages_setup,
+  require => Class['install_python_software_properties']
+}
+
+class apt_get_update2 {
+  exec { 'apt_get_update_exec2':
+    command => '/usr/bin/apt-get -y update',
+    user    => 'root'
+  }  
+}
+class { 'apt_get_update2':
+  stage   => ubuntu_packages_setup,
+  require => Class['apt_add_repository']
 }
 
 class install_sqlite3 {
@@ -98,12 +129,27 @@ class install_core_packages {
 class { 'install_core_packages': }
 
 class install_ruby {
-  package { 'ruby1.9.3':
+  package { ['ruby', 'rubygems', 'ruby-switch', 'ruby1.9.3']:
     ensure => installed
   }
 
-  exec { '/usr/bin/gem install bundler --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem list | grep bundler',
+  exec { '/usr/bin/ruby-switch --set ruby1.9.1':
+    user    => 'root',
+    require => [
+      Package['ruby-switch'],
+      Package['ruby'],
+      Package['ruby1.9.3']
+    ]
+  }
+
+  exec { '/usr/bin/gem1.8 install bundler --no-rdoc --no-ri':
+    unless  => '/usr/bin/gem1.8 list | grep bundler',
+    user    => 'root',
+    require => Package['rubygems']
+  }
+
+  exec { '/usr/bin/gem1.9.3 install bundler --no-rdoc --no-ri':
+    unless  => '/usr/bin/gem1.9.3 list | grep bundler',
     user    => 'root',
     require => Package['ruby1.9.3']
   }
