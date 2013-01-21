@@ -1,4 +1,5 @@
-$ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
+$ar_databases   = ['activerecord_unittest', 'activerecord_unittest2']
+$brightbox_list =  '/etc/apt/sources.list.d/brightbox-ruby-ng-precise.list'
 
 stage { 'ubuntu_packages_setup':
   before => Stage['main']
@@ -7,7 +8,8 @@ stage { 'ubuntu_packages_setup':
 class apt_get_update1 {
   exec { 'apt_get_update_exec1':
     command => '/usr/bin/apt-get -y update',
-    user    => 'root'
+    user    => 'root',
+    unless  => "/usr/bin/test -e ${brightbox_list}"
   }
 }
 class { 'apt_get_update1':
@@ -25,8 +27,9 @@ class { 'install_python_software_properties':
 }
 
 class apt_add_repository {
-  exec { '/usr/bin/apt-add-repository ppa:brightbox/ruby-ng':
-    user => 'root'
+  exec { '/usr/bin/apt-add-repository -y ppa:brightbox/ruby-ng':
+    user    => 'root',
+    creates => $brightbox_list
   }
 }
 class { 'apt_add_repository':
