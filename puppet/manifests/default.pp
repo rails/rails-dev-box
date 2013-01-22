@@ -132,29 +132,16 @@ class install_core_packages {
 class { 'install_core_packages': }
 
 class install_ruby {
-  package { ['ruby', 'rubygems', 'ruby-switch', 'ruby1.9.3']:
+  # This is Ruby 1.9.3 with performance patches from Brightbox, we added their
+  # package repository above.
+  package { ['ruby1.9.1', 'ruby1.9.1-dev']:
     ensure => installed
   }
 
-  exec { '/usr/bin/ruby-switch --set ruby1.9.1':
+  exec { '/usr/bin/gem install bundler --no-rdoc --no-ri':
+    unless  => '/usr/bin/gem list | grep bundler',
     user    => 'root',
-    require => [
-      Package['ruby-switch'],
-      Package['ruby'],
-      Package['ruby1.9.3']
-    ]
-  }
-
-  exec { '/usr/bin/gem1.8 install bundler --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem1.8 list | grep bundler',
-    user    => 'root',
-    require => Package['rubygems']
-  }
-
-  exec { '/usr/bin/gem1.9.3 install bundler --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem1.9.3 list | grep bundler',
-    user    => 'root',
-    require => Package['ruby1.9.3']
+    require => Package['ruby1.9.1']
   }
 }
 class { 'install_ruby': }
