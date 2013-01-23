@@ -1,4 +1,9 @@
+Exec {
+  path => ['/usr/sbin', '/usr/bin', '/sbin', '/bin']
+}
+
 $ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
+$as_vagrant   = 'sudo -u vagrant -H bash -l -c'
 
 # Make sure apt-get -y update runs before anything else.
 stage { 'preinstall':
@@ -6,8 +11,9 @@ stage { 'preinstall':
 }
 
 class apt_get_update {
-  exec { '/usr/bin/apt-get -y update':
-    user => 'root'
+  exec { 'apt-get -y update':
+    user   => 'root',
+    unless => 'test -e /home/vagrant/.rvm'
   }
 }
 class { 'apt_get_update':
@@ -97,18 +103,36 @@ class install_core_packages {
 }
 class { 'install_core_packages': }
 
-class install_ruby {
-  package { 'ruby1.9.3':
+class install_curl {
+  package { 'curl':
     ensure => installed
   }
+}
+class { 'install_curl': }
 
-  exec { '/usr/bin/gem install bundler --no-rdoc --no-ri':
-    unless  => '/usr/bin/gem list | grep bundler',
-    user    => 'root',
-    require => Package['ruby1.9.3']
+class install_rvm {
+  exec { "${as_vagrant} 'curl -L https://get.rvm.io | bash -s master'":
+    creates => '/home/vagrant/.rvm',
+    require => Class['install_curl']
+  }
+}
+class { 'install_rvm': }
+
+class install_ruby {
+  exec { "${as_vagrant} 'rvm install 1.9.3 --latest-binary && rvm use 1.9.3 --default'":
+    creates => '/home/vagrant/.rvm/bin/ruby',
+    require => Class['install_rvm']
   }
 }
 class { 'install_ruby': }
+
+class install_bundler {
+  exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
+    creates => '/home/vagrant/.rvm/bin/bundle',
+    require => Class['install_ruby']
+  }
+}
+class { 'install_bundler': }
 
 class install_nokogiri_dependencies {
   package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
