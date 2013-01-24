@@ -1,35 +1,33 @@
+$ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
+$as_vagrant   = 'sudo -u vagrant -H bash -l -c'
+$home         = '/home/vagrant'
+
 Exec {
   path => ['/usr/sbin', '/usr/bin', '/sbin', '/bin']
 }
 
-$ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
-$as_vagrant   = 'sudo -u vagrant -H bash -l -c'
+# --- Preinstall Stage ---------------------------------------------------------
 
-# Make sure apt-get -y update runs before anything else.
 stage { 'preinstall':
   before => Stage['main']
 }
 
 class apt_get_update {
   exec { 'apt-get -y update':
-    user   => 'root',
-    unless => 'test -e /home/vagrant/.rvm'
+    unless => "test -e ${home}/.rvm"
   }
 }
 class { 'apt_get_update':
   stage => preinstall
 }
 
-class install_sqlite3 {
-  package { 'sqlite3':
-    ensure => installed;
-  }
+# --- SQLite -------------------------------------------------------------------
 
-  package { 'libsqlite3-dev':
-    ensure => installed;
-  }
+package { ['sqlite3', 'libsqlite3-dev']:
+  ensure => installed;
 }
-class { 'install_sqlite3': }
+
+# --- MySQL --------------------------------------------------------------------
 
 class install_mysql {
   class { 'mysql': }
@@ -60,6 +58,8 @@ class install_mysql {
 }
 class { 'install_mysql': }
 
+# --- PostgreSQL ---------------------------------------------------------------
+
 class install_postgres {
   class { 'postgresql': }
 
@@ -88,64 +88,49 @@ class install_postgres {
 }
 class { 'install_postgres': }
 
-class install_core_packages {
-  if !defined(Package['build-essential']) {
-    package { 'build-essential':
-      ensure => installed
-    }
-  }
-
-  if !defined(Package['git-core']) {
-    package { 'git-core':
-      ensure => installed
-    }
-  }
-}
-class { 'install_core_packages': }
-
-class install_curl {
-  package { 'curl':
-    ensure => installed
-  }
-}
-class { 'install_curl': }
-
-class install_rvm {
-  exec { "${as_vagrant} 'curl -L https://get.rvm.io | bash -s master'":
-    creates => '/home/vagrant/.rvm',
-    require => Class['install_curl']
-  }
-}
-class { 'install_rvm': }
-
-class install_ruby {
-  exec { "${as_vagrant} 'rvm install 1.9.3 --latest-binary && rvm use 1.9.3 --default'":
-    creates => '/home/vagrant/.rvm/bin/ruby',
-    require => Class['install_rvm']
-  }
-}
-class { 'install_ruby': }
-
-class install_bundler {
-  exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
-    creates => '/home/vagrant/.rvm/bin/bundle',
-    require => Class['install_ruby']
-  }
-}
-class { 'install_bundler': }
-
-class install_nokogiri_dependencies {
-  package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
-    ensure => installed
-  }
-}
-class { 'install_nokogiri_dependencies': }
-
-class install_execjs_runtime {
-  package { 'nodejs':
-    ensure => installed
-  }
-}
-class { 'install_execjs_runtime': }
+# --- Memcached ----------------------------------------------------------------
 
 class { 'memcached': }
+
+# --- Packages -----------------------------------------------------------------
+
+package { 'curl':
+  ensure => installed
+}
+
+package { 'build-essential':
+  ensure => installed
+}
+
+package { 'git-core':
+  ensure => installed
+}
+
+# Nokogiri dependencies.
+package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
+  ensure => installed
+}
+
+# ExecJS runtime.
+package { 'nodejs':
+  ensure => installed
+}
+
+# --- Ruby ---------------------------------------------------------------------
+
+exec { 'install_rvm':
+  command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s master'",
+  creates => "${home}/.rvm",
+  require => Package['curl']
+}
+
+exec { 'install_ruby':
+  command => "${as_vagrant} 'rvm install 1.9.3 --latest-binary && rvm use 1.9.3 --default'",
+  creates => "${home}/.rvm/bin/ruby",
+  require => Exec['install_rvm']
+}
+
+exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
+  creates => "${home}/.rvm/bin/bundle",
+  require => Exec['install_ruby']
+}
