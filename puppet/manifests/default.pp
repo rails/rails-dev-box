@@ -125,7 +125,12 @@ exec { 'install_rvm':
 }
 
 exec { 'install_ruby':
-  command => "${as_vagrant} 'rvm install 1.9.3 --latest-binary && rvm alias create default 1.9.3'",
+  # We run the rvm executable directly because the shell function assumes an
+  # interactive environment, in particular to display messages or ask questions.
+  # The rvm executable is more suitable for automated installs.
+  #
+  # Thanks to @mpapis for this tip.
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install 1.9.3 --latest-binary && rvm alias create default 1.9.3'",
   creates => "${home}/.rvm/bin/ruby",
   require => Exec['install_rvm']
 }
