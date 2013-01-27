@@ -125,7 +125,7 @@ exec { 'install_rvm':
 }
 
 exec { 'install_ruby':
-  command => "${as_vagrant} 'rvm install 1.9.3 --latest-binary && rvm use 1.9.3 --default'",
+  command => "${as_vagrant} '${home}/.rvm/bin/rvm install 1.9.3 --latest-binary && rvm use 1.9.3 --default'",
   creates => "${home}/.rvm/bin/ruby",
   require => Exec['install_rvm']
 }
