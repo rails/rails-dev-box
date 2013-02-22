@@ -70,7 +70,7 @@ Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
 
 so we are ready to go to edit in the host, and test in the virtual machine.
 
-This workflow is convenient because in the host computer one normally has one's editor of choice fine-tuned, Git configured, and SSH keys in place.
+This workflow is convenient because in the host computer you normally have your editor of choice fine-tuned, Git configured, and SSH keys in place.
 
 ## Virtual Machine Management
 
