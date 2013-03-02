@@ -39,12 +39,12 @@ class install_mysql {
   database { $ar_databases:
     ensure  => present,
     charset => 'utf8',
-    require => Class['mysql::server'] 
+    require => Class['mysql::server']
   }
 
   database_user { 'rails@localhost':
     ensure  => present,
-    require => Class['mysql::server'] 
+    require => Class['mysql::server']
   }
 
   database_grant { ['rails@localhost/activerecord_unittest', 'rails@localhost/activerecord_unittest2']:
@@ -73,7 +73,7 @@ class install_postgres {
 
   pg_user { 'rails':
     ensure  => present,
-    require => Class['postgresql::server'] 
+    require => Class['postgresql::server']
   }
 
   pg_user { 'vagrant':
@@ -106,6 +106,11 @@ package { 'git-core':
   ensure => installed
 }
 
+# Required for Ruby binary install
+package { 'libyaml-dev':
+  ensure => installed
+}
+
 # Nokogiri dependencies.
 package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
   ensure => installed
@@ -132,7 +137,7 @@ exec { 'install_ruby':
   # Thanks to @mpapis for this tip.
   command => "${as_vagrant} '${home}/.rvm/bin/rvm install 1.9.3 --latest-binary && rvm --fuzzy alias create default 1.9.3'",
   creates => "${home}/.rvm/bin/ruby",
-  require => Exec['install_rvm']
+  require => [ Package['libyaml-dev'], Exec['install_rvm'] ]
 }
 
 exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
