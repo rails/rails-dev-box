@@ -117,6 +117,11 @@ package { 'nodejs':
   ensure => installed
 }
 
+# Image magick
+package { ['imagemagick', 'libmagickwand-dev']:
+  ensure => installed
+}
+
 # --- Ruby ---------------------------------------------------------------------
 
 exec { 'install_rvm':
