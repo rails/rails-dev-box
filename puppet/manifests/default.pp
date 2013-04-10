@@ -117,8 +117,13 @@ package { 'nodejs':
   ensure => installed
 }
 
-# Image magick
+# Imagemagick
 package { ['imagemagick', 'libmagickwand-dev']:
+  ensure => installed
+}
+
+# Thinking sphinx
+package { 'sphinxsearch':
   ensure => installed
 }
 
