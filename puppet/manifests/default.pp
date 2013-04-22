@@ -85,6 +85,11 @@ class install_postgres {
   package { 'libpq-dev':
     ensure => installed
   }
+
+  package { 'postgresql-contrib':
+    ensure  => installed,
+    require => Class['postgresql::server'],
+  }
 }
 class { 'install_postgres': }
 
