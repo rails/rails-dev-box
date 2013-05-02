@@ -125,7 +125,7 @@ package { 'nodejs':
 
 exec { 'install_rvm':
   command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable'",
-  creates => "${home}/.rvm",
+  creates => "${home}/.rvm/bin/rvm",
   require => Package['curl']
 }
 
