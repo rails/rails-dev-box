@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This project automates the setup of a development environment for Ruby on Rails core development. This is the easiest way to build a box with everything ready to start hacking on your pull request, all in an isolated virtual machine.
+This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
+
+Please note this virtual machine is not designed to be used for Rails application development.
 
 ## Requirements
 

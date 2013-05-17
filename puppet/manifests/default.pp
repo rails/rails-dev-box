@@ -86,6 +86,11 @@ class install_postgres {
   package { 'libpq-dev':
     ensure => installed
   }
+
+  package { 'postgresql-contrib':
+    ensure  => installed,
+    require => Class['postgresql::server'],
+  }
 }
 class { 'install_postgres': }
 
@@ -131,7 +136,7 @@ package { 'sphinxsearch':
 
 exec { 'install_rvm':
   command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable'",
-  creates => "${home}/.rvm",
+  creates => "${home}/.rvm/bin/rvm",
   require => Package['curl']
 }
 
