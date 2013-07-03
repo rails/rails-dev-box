@@ -70,7 +70,12 @@ Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
     vagrant@rails-dev-box:~$ ls /vagrant
     puppet  rails  README.md  Vagrantfile
 
-so we are ready to go to edit in the host, and test in the virtual machine.
+Install gem dependencies in there:
+
+    vagrant@rails-dev-box:~$ cd /vagrant/rails
+    vagrant@rails-dev-box:/vagrant/rails$ bundle
+
+We are ready to go to edit in the host, and test in the virtual machine.
 
 This workflow is convenient because in the host computer you normally have your editor of choice fine-tuned, Git configured, and SSH keys in place.
 
