@@ -79,6 +79,7 @@ class install_postgres {
   pg_user { 'vagrant':
     ensure    => present,
     superuser => true,
+    password => 'vagrant',
     require   => Class['postgresql::server']
   }
 
@@ -118,6 +119,16 @@ package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
 
 # ExecJS runtime.
 package { 'nodejs':
+  ensure => installed
+}
+
+# Imagemagick
+package { ['imagemagick', 'libmagickwand-dev']:
+  ensure => installed
+}
+
+# Thinking sphinx
+package { 'sphinxsearch':
   ensure => installed
 }
 
