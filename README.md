@@ -59,13 +59,13 @@ The recommended workflow is
 
 * test within the virtual machine.
 
-Just clone your Rails fork in the very directory of the Rails development box in the host computer:
+Just clone your Rails fork into the rails-dev-box directory on the host computer:
 
     host $ ls
     README.md   Vagrantfile puppet
     host $ git clone git@github.com:<your username>/rails.git
 
-Vagrant mounts that very directory as _/vagrant_ within the virtual machine:
+Vagrant mounts that directory as _/vagrant_ within the virtual machine:
 
     vagrant@rails-dev-box:~$ ls /vagrant
     puppet  rails  README.md  Vagrantfile
