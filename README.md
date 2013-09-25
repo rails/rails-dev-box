@@ -10,7 +10,7 @@ Please note this virtual machine is not designed to be used for Rails applicatio
 
 * [VirtualBox](https://www.virtualbox.org)
 
-* [Vagrant 1.1+](http://vagrantup.com)
+* [Vagrant 1.1+](http://vagrantup.com) (not a Ruby gem)
 
 ## How To Build The Virtual Machine
 
