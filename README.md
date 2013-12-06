@@ -8,7 +8,7 @@ Please note this virtual machine is not designed to be used for Rails applicatio
 
 ## Requirements
 
-* [VirtualBox](https://www.virtualbox.org)
+* [VirtualBox 4.2](https://www.virtualbox.org)
 
 * [Vagrant 1.1+](http://vagrantup.com) (not a Ruby gem)
 
