@@ -47,7 +47,7 @@ class install_mysql {
     require => Class['mysql::server']
   }
 
-  database_grant { ['rails@localhost/activerecord_unittest', 'rails@localhost/activerecord_unittest2']:
+  database_grant { ['rails@localhost/activerecord_unittest', 'rails@localhost/activerecord_unittest2', 'rails@localhost/inexistent_activerecord_unittest']:
     privileges => ['all'],
     require    => Database_user['rails@localhost']
   }
