@@ -4,7 +4,7 @@
 
 This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
 
-Please note this virtual machine is not designed to be used for Rails application development.
+**Please note this virtual machine is not designed to be used for Rails application development.**
 
 ## Requirements
 
