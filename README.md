@@ -77,6 +77,15 @@ Install gem dependencies in there:
 
 We are ready to go to edit in the host, and test in the virtual machine.
 
+If you are not getting run rails commands. 
+Just run the command: 
+
+    \curl -sSL https://get.rvm.io | bash -s stable --rails
+
+Close the ssh connection, reopen and run
+
+    rails -v
+
 This workflow is convenient because in the host computer you normally have your editor of choice fine-tuned, Git configured, and SSH keys in place.
 
 ## Virtual Machine Management
