@@ -8,7 +8,7 @@ This project automates the setup of a development environment for working on Rub
 
 ## Requirements
 
-* [VirtualBox](https://www.virtualbox.org)
+* [VirtualBox 4.2](https://www.virtualbox.org)
 
 * [Vagrant 1.1+](http://vagrantup.com) (not a Ruby gem)
 
