@@ -8,7 +8,7 @@ This project automates the setup of a development environment for working on Rub
 
 ## Requirements
 
-* [VirtualBox](https://www.virtualbox.org)
+* [VirtualBox](https://www.virtualbox.org) or [VMWare Fusion](http://www.vmware.com/products/fusion)
 
 * [Vagrant 1.1+](http://vagrantup.com) (not a Ruby gem)
 
@@ -21,6 +21,8 @@ Building the virtual machine is this easy:
     host $ vagrant up
 
 That's it.
+
+(If you want to use VMWare Fusion instead of VirtualBox, write `vagrant up --provider=vmware_fusion` instead of `vagrant up` when building the VM for the first time. After that, Vagrant will remember your provider choice, and you won't need to include the `provider` flag again.)
 
 If the base box is not present that command fetches it first. The setup itself takes about 3 minutes in my MacBook Air. After the installation has finished, you can access the virtual machine with
 
