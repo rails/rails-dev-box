@@ -144,6 +144,7 @@ exec { 'install_ruby':
   require => Exec['install_rvm']
 }
 
+# RVM installs a version of bundler, but for edge Rails we want the most recent one.
 exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
   creates => "${home}/.rvm/bin/bundle",
   require => Exec['install_ruby']
