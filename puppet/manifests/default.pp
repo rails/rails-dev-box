@@ -2,8 +2,8 @@ $ar_databases = ['activerecord_unittest', 'activerecord_unittest2']
 $as_vagrant   = 'sudo -u vagrant -H bash -l -c'
 $home         = '/home/vagrant'
 
-# Pick one modern enough, supported in recent Rails versions, and for which RVM
-# provides binaries.
+# Pick a Ruby version modern enough, that works in the currently supported Rails
+# versions, and for which RVM provides binaries.
 $ruby_version = '2.0.0-p353'
 
 Exec {
