@@ -113,12 +113,36 @@ Please check the [Vagrant documentation](http://docs.vagrantup.com/v2/) for more
 
 ## Faster Rails test suites
 
+The default mechanism for sharing folders is convenient and works out the box in
+all Vagrant versions, but there are a couple of alternatives that are more
+performant.
+
+### rsync
+
+Vagrant 1.5 implements a [sharing mechanism based on rsync](https://www.vagrantup.com/blog/feature-preview-vagrant-1-5-rsync.html)
+that dramatically improves read/write because files are actually stored in the
+guest. Just throw
+
+    config.vm.synced_folder '.', '/vagrant', type: 'rsync'
+
+to the _Vagrantfile_ and either rsync manually with
+
+    vagrant rsync
+
+or run
+
+    vagrant rsync-auto
+
+for automatic syncs. See the post linked above for details.
+
+### NFS
+
 If you're using Mac OS X or Linux you can increase the speed of Rails test suites with Vagrant's NFS synced folders.
 
 With a NFS server installed (already installed on Mac OS X), add the following to the Vagrantfile:
 
-    config.vm.synced_folder ".", "/vagrant", type: "nfs"
-    config.vm.network "private_network", ip: "192.168.50.4" # ensure this is available
+    config.vm.synced_folder '.', '/vagrant', type: 'nfs'
+    config.vm.network 'private_network', ip: '192.168.50.4' # ensure this is available
 
 Then
 
