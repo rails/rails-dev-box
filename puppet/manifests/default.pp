@@ -149,3 +149,10 @@ exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
   creates => "${home}/.rvm/bin/bundle",
   require => Exec['install_ruby']
 }
+
+# --- Locale -------------------------------------------------------------------
+
+# Needed for docs generation.
+exec { 'update-locale':
+  command => 'update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8'
+}
