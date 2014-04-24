@@ -13,6 +13,9 @@ Vagrant.configure('2') do |config|
   config.vm.provider 'parallels' do |v, override|
     override.vm.box = 'parallels/ubuntu-12.04'
     override.vm.box_url = 'https://vagrantcloud.com/parallels/ubuntu-12.04'
+
+    # Can running at background, see https://github.com/Parallels/vagrant-parallels/issues/39
+    v.customize ['set', :id, '--on-window-close', 'keep-running']
   end
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000
