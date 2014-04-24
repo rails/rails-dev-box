@@ -10,6 +10,11 @@ Vagrant.configure('2') do |config|
     override.vm.box_url = 'http://files.vagrantup.com/precise64_vmware.box'
   end
 
+  config.vm.provider 'parallels' do |v, override|
+    override.vm.box = 'parallels/ubuntu-12.04'
+    override.vm.box_url = 'https://vagrantcloud.com/parallels/ubuntu-12.04'
+  end
+
   config.vm.network :forwarded_port, guest: 3000, host: 3000
 
   config.vm.provision :puppet do |puppet|
