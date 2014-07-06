@@ -28,12 +28,12 @@ That's it.
 
 If the base box is not present that command fetches it first. The setup itself takes about 3 minutes in my MacBook Air. After the installation has finished, you can access the virtual machine with
 
-    host $ vagrant ssh
+    host $ vagrant ssh -- -A
     Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
     ...
     vagrant@rails-dev-box:~$
 
-Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer.
+Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer. The `-A` option to `vagrant ssh` enables SSH agent forwarding, which will allow you to use the host keys for `git clone`ing and expedite setup.
 
 ## What's In The Box
 
