@@ -41,7 +41,7 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * RVM
 
-* Ruby 2.0.0 (binary RVM install)
+* Ruby 2.1.1 (binary RVM install)
 
 * Bundler
 
