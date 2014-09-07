@@ -1,0 +1,9 @@
+{
+  "CHANGELOG": "901e55ff61a47eb4078ba02a09f2f352",
+  "LICENSE": "6089b6bd1f0d807edb8bdfd76da0b038",
+  "Modulefile": "7b285361190d4be4abacecb088e43201",
+  "manifests/init.pp": "dabde84aa12aac6ea519ddffdc25feeb",
+  "manifests/params.pp": "52ed64183f18aa2e7c2f8edfbbdf3b56",
+  "tests/init.pp": "d97b158981e1e2b710a0dec5ce8d40d0",
+  "tests/params.pp": "34196cd17ebe3b0665a909625dc384f7"
+}

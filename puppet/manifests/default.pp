@@ -113,13 +113,13 @@ class { 'install_postgres': }
 
 class { 'memcached': }
 
+# --- Redis ----------------------------------------------------------------
+
+class { 'redis': }
+
 # --- Packages -----------------------------------------------------------------
 
 package { 'curl':
-  ensure => installed
-}
-
-package { 'build-essential':
   ensure => installed
 }
 

@@ -1,0 +1,17 @@
+{
+  "CHANGES.md": "93923f51342ff0e345b0a9ce22d4aacc",
+  "LICENSE": "adb87d44dabfe739f1bb86bc2119c8eb",
+  "README.md": "791e77840ce63120ef30fe87e321f68a",
+  "Rakefile": "400ac17906e1c17ac34d0d2af719eabc",
+  "files/redis.conf": "403d36824791900fce32f2fd3635cd23",
+  "manifests/init.pp": "647b9d4baad0052e5749643a2eede327",
+  "manifests/instance.pp": "4262c72f94794d8e44357ad0fc5c3f4c",
+  "manifests/params.pp": "2d84a3571fb3dd2fda84dca38174d968",
+  "metadata.json": "267cd52b02c3690294638cbdbc982eac",
+  "spec/classes/redis_spec.rb": "6cfae0e8dc10001c2abb1d889db1f7db",
+  "spec/defines/instance_spec.rb": "5fd77d6cab51c6108992e2530f14f1b3",
+  "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+  "templates/redis.init.erb": "a5ea0b1317b236d92d7689523a11bc9a",
+  "templates/redis_port.conf.erb": "57e1257a9fc86449ac1b54e2690e1aad",
+  "tests/init.pp": "7df9826add5de77d910d515c7f4f0993"
+}

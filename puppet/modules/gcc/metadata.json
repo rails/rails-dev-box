@@ -1,0 +1,14 @@
+{
+  "name": "puppetlabs-gcc",
+  "version": "0.2.0",
+  "author": "puppetlabs",
+  "summary": "module for installing gcc build utils",
+  "license": "Apache 2.0",
+  "source": "git://github.com/puppetlabs/puppetlabs-gcc.git",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-gcc/",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-gcc/issues",
+  "description": "module for installing gcc build utils",
+  "dependencies": [
+  
+  ]
+}

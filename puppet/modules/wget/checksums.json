@@ -1,0 +1,17 @@
+{
+  "Gemfile": "d71a594754a488b10558ac442b05dfd5",
+  "Gemfile.lock": "67eaef403f4631e8317e0325a337c10a",
+  "LICENSE": "3b83ef96387f14655fc854ddc3c6bd57",
+  "README.md": "dd15db096e342b4aca02835fad8c949b",
+  "Rakefile": "cb83d3c59273252b3b4fcadb6f912a62",
+  "manifests/authfetch.pp": "9d6be20c551b22be286a810b3e225ec7",
+  "manifests/fetch.pp": "1bb2fe720e3a28346c67a7ca40b1775a",
+  "manifests/init.pp": "d186945bf91813070e769f8367f7026f",
+  "metadata.json": "616847e597adc19776ea234e829fd661",
+  "spec/classes/init_spec.rb": "7f8b9b8cdbe43ee2ae237f4f2e8564df",
+  "spec/defines/authfetch_spec.rb": "f227ee172638327899734969e93c25f8",
+  "spec/defines/fetch_spec.rb": "856a6eb6643d41e5fecf06fa5e82bfdb",
+  "spec/spec_helper.rb": "eeba023ffd9eb797e44508ea2f99f90e",
+  "spec/spec_helper_system.rb": "deaf51d85121ccd2edd4db144941b2ce",
+  "spec/system/wget_system_spec.rb": "13f5696b3b9a9ba89a1c6f0da60e171b"
+}
