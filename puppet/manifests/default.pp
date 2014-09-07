@@ -6,6 +6,8 @@ $home         = '/home/vagrant'
 # versions, and for which RVM provides binaries.
 $ruby_version = '2.1.2'
 
+include apt
+
 Exec {
   path => ['/usr/sbin', '/usr/bin', '/sbin', '/bin']
 }
@@ -64,8 +66,18 @@ class { 'install_mysql': }
 
 # --- PostgreSQL ---------------------------------------------------------------
 
+
 class install_postgres {
-  class { 'postgresql': }
+  apt::source { 'postgresql':
+    location   => 'http://apt.postgresql.org/pub/repos/apt',
+    release    => "precise-pgdg",
+    key        => 'ACCC4CF8',
+    key_source => 'https://www.postgresql.org/media/keys/ACCC4CF8.asc',
+  }
+
+  class { 'postgresql':
+    version => '9.3'
+  }
 
   class { 'postgresql::server': }
 
@@ -134,11 +146,11 @@ exec { 'install_rvm':
 }
 
 exec { 'install_ruby':
-  # We run the rvm executable directly because the shell function assumes an
-  # interactive environment, in particular to display messages or ask questions.
-  # The rvm executable is more suitable for automated installs.
-  #
-  # use a ruby patch level known to have a binary
+# We run the rvm executable directly because the shell function assumes an
+# interactive environment, in particular to display messages or ask questions.
+# The rvm executable is more suitable for automated installs.
+#
+# use a ruby patch level known to have a binary
   command => "${as_vagrant} '${home}/.rvm/bin/rvm install ruby-${ruby_version} --binary --autolibs=enabled && rvm alias create default ${ruby_version}'",
   creates => "${home}/.rvm/bin/ruby",
   require => Exec['install_rvm']
