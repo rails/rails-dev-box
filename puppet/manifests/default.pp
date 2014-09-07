@@ -117,6 +117,12 @@ class { 'memcached': }
 
 class { 'redis': }
 
+# --- Rabbitmq ----------------------------------------------------------------
+
+class { '::rabbitmq':
+  admin_enable => false
+}
+
 # --- Packages -----------------------------------------------------------------
 
 package { 'curl':
