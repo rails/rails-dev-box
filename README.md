@@ -152,4 +152,7 @@ Please check the Vagrant documentation on [NFS synced folders](http://docs.vagra
 
 ## License
 
-Released under the MIT License, Copyright (c) 2012–<i>ω</i> Xavier Noria.
+Released under the MIT License, Copyright (c) 2012–<i>ω</i> Ruby on Rails Decal.
+
+## Credits
+Based on https://github.com/rails/rails-dev-box
