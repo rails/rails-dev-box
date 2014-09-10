@@ -1,10 +1,8 @@
-# A Virtual Machine for Ruby on Rails Core Development
+# A Virtual Machine for Ruby on Rails
 
 ## Introduction
 
-This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
-
-**Please note this virtual machine is not designed to be used for Rails application development.**
+This project automates the setup of a development environment for working with Ruby on Rails. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
 
 ## Requirements
 
