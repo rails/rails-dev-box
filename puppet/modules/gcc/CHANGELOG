@@ -1,0 +1,21 @@
+2014-06-03 - Release 0.2.0
+
+Summary:
+
+Just a few small tweaks.
+
+Features:
+- Add g++ for RHEL.
+- Fail on unsupported distributions.
+
+Fixes:
+
+2013-08-14 - Release 0.1.0
+
+Features:
+- Support osfamily  instead of using `$operatingsystem`. Note that
+Amazon Linux is RedHat osfamily on facter version 1.7
+
+2011-06-03 - Dan Bode <dan@puppetlabs.com> - 0.0.3
+* committed source to git
+* added tests

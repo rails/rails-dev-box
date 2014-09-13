@@ -1,0 +1,97 @@
+#!/bin/sh
+#Configurations injected by install_server below....
+
+REDIS_PORT="<%= @redis_port %>"
+REDIS_BIND_ADDRESS="<%= @redis_bind_address ? @redis_bind_address : '127.0.0.1' %>"
+
+EXEC=<%= scope.lookupvar('redis::redis_bin_dir') %>/bin/redis-server
+CLIEXEC="<%= scope.lookupvar('redis::redis_bin_dir') %>/bin/redis-cli -h $REDIS_BIND_ADDRESS -p $REDIS_PORT <%= @redis_password ? '-a ' + @redis_password : '' %>"
+PIDFILE="/var/run/redis_${REDIS_PORT}.pid"
+CONF="/etc/redis/${REDIS_PORT}.conf"
+
+###############
+
+# chkconfig: 2345 95 20
+# description: redis_<%= @redis_port %> is the redis daemon.
+### BEGIN INIT INFO
+# Provides: redis_<%= @redis_port %>
+# Required-Start: 
+# Required-Stop: 
+# Should-Start: 
+# Should-Stop: 
+# Short-Description: start and stop redis_<%= @redis_port %>
+# Description: Redis daemon
+### END INIT INFO
+
+set -e
+
+start()
+{
+    if [ -x $PIDFILE ]
+    then
+        echo "$PIDFILE exists, process is already running or crashed"
+    else
+        echo "Starting Redis server..."
+        $EXEC $CONF
+    fi
+}
+
+stop()
+{
+    if [ ! -f $PIDFILE ]
+    then
+        echo "$PIDFILE does not exist, process is not running"
+    else
+        PID=$(cat $PIDFILE)
+        echo "Stopping ..."
+        $CLIEXEC shutdown || /bin/true
+        while [ -x /proc/${PID} ]
+        do
+            echo "Waiting for Redis to shutdown ..."
+            sleep 1
+        done
+        echo "Redis stopped"
+    fi
+}
+
+restart()
+{
+    stop
+    echo "Sleeping for 3 seconds..."
+    sleep 3
+    start
+}
+
+status()
+{
+    if [ ! -f $PIDFILE ]
+    then
+  echo "$PIDFILE does not exist, redis is not running"
+  exit 3
+    elif [ ! -x /proc/$(cat $PIDFILE) ]
+    then
+  echo "$PIDFILE exists, process is not running though"
+  exit 1
+    else
+  echo "redis is running with PID $(cat $PIDFILE)"
+  exit 0
+    fi
+}
+
+case "$1" in
+    start)
+  start 
+  ;;
+    stop)
+  stop
+        ;;
+    restart)
+  restart
+  ;;
+    status)
+  status
+  ;;
+    *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|status}"
+        ;;
+esac

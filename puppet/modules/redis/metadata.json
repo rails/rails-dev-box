@@ -1,0 +1,21 @@
+{
+  "name": "thomasvandoren-redis",
+  "version": "0.10.0",
+  "author": "Thomas Van Doren",
+  "summary": "Install and configure redis.",
+  "license": "BSD",
+  "source": "git://github.com/thomasvandoren/puppet-redis.git",
+  "project_page": "https://github.com/thomasvandoren/puppet-redis",
+  "issues_url": "https://github.com/thomasvandoren/puppet-redis/issues",
+  "description": "Install and configure redis.",
+  "dependencies": [
+    {
+      "name": "maestrodev/wget",
+      "version_requirement": ">= 1.1.0"
+    },
+    {
+      "name": "puppetlabs/gcc",
+      "version_requirement": ">= 0.0.3"
+    }
+  ]
+}
