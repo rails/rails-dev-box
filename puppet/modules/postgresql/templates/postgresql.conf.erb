@@ -56,7 +56,7 @@ external_pid_file = '/var/run/postgresql/<%= @version %>-main.pid'		# write an e
 
 # - Connection Settings -
 
-<% if listen.is_a? Array -%>
+<% if @listen.is_a? Array -%>
 listen_addresses = '<%= @listen.join ',' %>'
 <% else %>
 listen_addresses = '<%= @listen %>'
