@@ -1,52 +1,82 @@
-# Class: mysql::server
-#
-# manages the installation of the mysql server.  manages the package, service,
-# my.cnf
-#
-# Parameters:
-#   [*package_name*] - name of package
-#   [*service_name*] - name of service
-#   [*config_hash*]  - hash of config parameters that need to be set.
-#
-# Actions:
-#
-# Requires:
-#
-# Sample Usage:
-#
+# Class: mysql::server:  See README.md for documentation.
 class mysql::server (
-  $package_name     = $mysql::params::server_package_name,
-  $package_ensure   = 'present',
-  $service_name     = $mysql::params::service_name,
-  $service_provider = $mysql::params::service_provider,
-  $config_hash      = {},
-  $enabled          = true
+  $config_file             = $mysql::params::config_file,
+  $manage_config_file      = $mysql::params::manage_config_file,
+  $old_root_password       = $mysql::params::old_root_password,
+  $override_options        = {},
+  $package_ensure          = $mysql::params::server_package_ensure,
+  $package_name            = $mysql::params::server_package_name,
+  $purge_conf_dir          = $mysql::params::purge_conf_dir,
+  $remove_default_accounts = false,
+  $restart                 = $mysql::params::restart,
+  $root_group              = $mysql::params::root_group,
+  $root_password           = $mysql::params::root_password,
+  $service_enabled         = $mysql::params::server_service_enabled,
+  $service_manage          = $mysql::params::server_service_manage,
+  $service_name            = $mysql::params::server_service_name,
+  $service_provider        = $mysql::params::server_service_provider,
+  $users                   = {},
+  $grants                  = {},
+  $databases               = {},
+
+  # Deprecated parameters
+  $enabled                 = undef,
+  $manage_service          = undef
 ) inherits mysql::params {
 
-  Class['mysql::server'] -> Class['mysql::config']
-
-  $config_class = {}
-  $config_class['mysql::config'] = $config_hash
-
-  create_resources( 'class', $config_class )
-
-  package { 'mysql-server':
-    name   => $package_name,
-    ensure => $package_ensure,
-  }
-
+  # Deprecated parameters.
   if $enabled {
-    $service_ensure = 'running'
+    crit('This parameter has been renamed to service_enabled.')
+    $real_service_enabled = $enabled
   } else {
-    $service_ensure = 'stopped'
+    $real_service_enabled = $service_enabled
+  }
+  if $manage_service {
+    crit('This parameter has been renamed to service_manage.')
+    $real_service_manage = $manage_service
+  } else {
+    $real_service_manage = $service_manage
   }
 
-  service { 'mysqld':
-    name     => $service_name,
-    ensure   => $service_ensure,
-    enable   => $enabled,
-    require  => Package['mysql-server'],
-    provider => $service_provider,
+  # Create a merged together set of options.  Rightmost hashes win over left.
+  $options = mysql_deepmerge($mysql::params::default_options, $override_options)
+
+  Class['mysql::server::root_password'] -> Mysql::Db <| |>
+
+  include '::mysql::server::install'
+  include '::mysql::server::config'
+  include '::mysql::server::service'
+  include '::mysql::server::root_password'
+  include '::mysql::server::providers'
+
+  if $remove_default_accounts {
+    class { '::mysql::server::account_security':
+      require => Anchor['mysql::server::end'],
+    }
   }
+
+  anchor { 'mysql::server::start': }
+  anchor { 'mysql::server::end': }
+
+  if $restart {
+    Anchor['mysql::server::start'] ->
+    Class['mysql::server::install'] ->
+    # Only difference between the blocks is that we use ~> to restart if
+    # restart is set to true.
+    Class['mysql::server::config'] ~>
+    Class['mysql::server::service'] ->
+    Class['mysql::server::root_password'] ->
+    Class['mysql::server::providers'] ->
+    Anchor['mysql::server::end']
+  } else {
+    Anchor['mysql::server::start'] ->
+    Class['mysql::server::install'] ->
+    Class['mysql::server::config'] ->
+    Class['mysql::server::service'] ->
+    Class['mysql::server::root_password'] ->
+    Class['mysql::server::providers'] ->
+    Anchor['mysql::server::end']
+  }
+
 
 }

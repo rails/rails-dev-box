@@ -1,47 +1,83 @@
+# This installs a PostgreSQL server. See README.md for more details.
 class postgresql::server (
-  $server_package = $postgresql::params::server_package,
-  $locale = $postgresql::params::locale,
-  $version = $postgresql::params::version,
-  $listen = $postgresql::params::listen_address,
-  $port = $postgresql::params::port,
-  $acl = []
+  $ensure                     = $postgresql::params::ensure,
+
+  $postgres_password          = undef,
+
+  $package_name               = $postgresql::params::server_package_name,
+  $client_package_name        = $postgresql::params::client_package_name,
+  $package_ensure             = $ensure,
+
+  $plperl_package_name        = $postgresql::params::plperl_package_name,
+
+  $service_ensure             = $postgresql::params::service_ensure,
+  $service_name               = $postgresql::params::service_name,
+  $service_provider           = $postgresql::params::service_provider,
+  $service_status             = $postgresql::params::service_status,
+  $default_database           = $postgresql::params::default_database,
+
+  $listen_addresses           = $postgresql::params::listen_addresses,
+  $port                       = $postgresql::params::port,
+  $ip_mask_deny_postgres_user = $postgresql::params::ip_mask_deny_postgres_user,
+  $ip_mask_allow_all_users    = $postgresql::params::ip_mask_allow_all_users,
+  $ipv4acls                   = $postgresql::params::ipv4acls,
+  $ipv6acls                   = $postgresql::params::ipv6acls,
+
+  $initdb_path                = $postgresql::params::initdb_path,
+  $createdb_path              = $postgresql::params::createdb_path,
+  $psql_path                  = $postgresql::params::psql_path,
+  $pg_hba_conf_path           = $postgresql::params::pg_hba_conf_path,
+  $postgresql_conf_path       = $postgresql::params::postgresql_conf_path,
+
+  $datadir                    = $postgresql::params::datadir,
+  $xlogdir                    = $postgresql::params::xlogdir,
+
+  $pg_hba_conf_defaults       = $postgresql::params::pg_hba_conf_defaults,
+
+  $user                       = $postgresql::params::user,
+  $group                      = $postgresql::params::group,
+
+  $needs_initdb               = $postgresql::params::needs_initdb,
+
+  $encoding                   = $postgresql::params::encoding,
+  $locale                     = $postgresql::params::locale,
+
+  $manage_firewall            = $postgresql::params::manage_firewall,
+  $manage_pg_hba_conf         = $postgresql::params::manage_pg_hba_conf,
+  $firewall_supported         = $postgresql::params::firewall_supported,
+
+  #Deprecated
+  $version                    = $postgresql::params::version,
 ) inherits postgresql::params {
+  $pg = 'postgresql::server'
 
-  package { "postgresql-server-$version":
-    name    => sprintf("%s-%s", $server_package, $version),
-    ensure  => present,
+  if $version != undef {
+    warning('Passing "version" to postgresql::server is deprecated; please use postgresql::globals instead.')
+    $_version = $postgresql::params::version
+  } else {
+    $_version = $version
   }
 
-  service { "postgresql-system-$version":
-    name        => 'postgresql',
-    enable      => true,
-    ensure      => running,
-    hasstatus   => false,
-    hasrestart  => true,
-    provider    => 'debian',
-    subscribe   => Package["postgresql-server-$version"],
-  }
+  if ($ensure == 'present' or $ensure == true) {
+    # Reload has its own ordering, specified by other defines
+    class { "${pg}::reload": require => Class["${pg}::install"] }
 
-  file { "postgresql-server-config-$version":
-    name    => "/etc/postgresql/$version/main/postgresql.conf",
-    ensure  => present,
-    content => template('postgresql/postgresql.conf.erb'),
-    owner   => 'postgres',
-    group   => 'postgres',
-    mode    => '0644',
-    require => Package["postgresql-server-$version"],
-    notify  => Service["postgresql-system-$version"],
+    anchor { "${pg}::start": }->
+    class { "${pg}::install": }->
+    class { "${pg}::initdb": }->
+    class { "${pg}::config": }->
+    class { "${pg}::service": }->
+    class { "${pg}::passwd": }->
+    class { "${pg}::firewall": }->
+    anchor { "${pg}::end": }
+  } else {
+    anchor { "${pg}::start": }->
+    class { "${pg}::firewall": }->
+    class { "${pg}::passwd": }->
+    class { "${pg}::service": }->
+    class { "${pg}::install": }->
+    class { "${pg}::initdb": }->
+    class { "${pg}::config": }->
+    anchor { "${pg}::end": }
   }
-
-  file { "postgresql-server-hba-config-$version":
-    name    => "/etc/postgresql/$version/main/pg_hba.conf",
-    ensure  => present,
-    content => template('postgresql/pg_hba.conf.erb'),
-    owner   => 'postgres',
-    group   => 'postgres',
-    mode    => '0640',
-    require => Package["postgresql-server-$version"],
-    notify  => Service["postgresql-system-$version"],
-  }
-
 }

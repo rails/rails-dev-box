@@ -7,7 +7,7 @@ module Puppet::Parser::Functions
     EOS
   ) do |args|
 
-    raise(Puppet::ParseError, "mysql_password(): Wrong number of arguments " +
+    raise(Puppet::ParseError, 'mysql_password(): Wrong number of arguments ' +
       "given (#{args.size} for 1)") if args.size != 1
 
     '*' + Digest::SHA1.hexdigest(Digest::SHA1.digest(args[0])).upcase

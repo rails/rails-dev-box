@@ -294,7 +294,7 @@ sub mysql_setup {
 		}
 	} elsif ( -r "/etc/mysql/debian.cnf" and $doremote == 0 ){
 		# We have a debian maintenance account, use it
-		$mysqllogin = "--defaults-file=/etc/mysql/debian.cnf";
+		$mysqllogin = "--defaults-extra-file=/etc/mysql/debian.cnf";
 		my $loginstatus = `mysqladmin $mysqllogin ping 2>&1`;
 		if ($loginstatus =~ /mysqld is alive/) {
 			goodprint "Logged in using credentials from debian maintenance account.\n";

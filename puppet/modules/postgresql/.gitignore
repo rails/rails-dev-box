@@ -1,0 +1,6 @@
+.vagrant
+# This is a library, so don't pin
+Gemfile.lock
+spec/fixtures
+pkg/
+.rspec_system/
