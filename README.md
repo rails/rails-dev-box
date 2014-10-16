@@ -2,15 +2,15 @@
 
 ## Introduction
 
-This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
+**Please note this VM is not designed for Rails application development, only Rails core development.**
 
-**Please note this virtual machine is not designed to be used for Rails application development.**
+This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
 
 ## Requirements
 
-* [VirtualBox](https://www.virtualbox.org) or [VMWare Fusion](http://www.vmware.com/products/fusion) or [Parallels Desktop](http://www.parallels.com/products/desktop/)(need Vagrant 1.5+, see [vagrant-parallels](http://parallels.github.io/vagrant-parallels/docs/installation/index.html))
+* [VirtualBox](https://www.virtualbox.org)
 
-* [Vagrant 1.1+](http://vagrantup.com) (not a Ruby gem)
+* [Vagrant](http://vagrantup.com)
 
 ## How To Build The Virtual Machine
 
@@ -22,14 +22,10 @@ Building the virtual machine is this easy:
 
 That's it.
 
-(If you want to use VMWare Fusion instead of VirtualBox, write `vagrant up --provider=vmware_fusion` instead of `vagrant up` when building the VM for the first time. After that, Vagrant will remember your provider choice, and you won't need to include the `provider` flag again.)
-
-(If you want to use Parallels Desktop instead of VirtualBox, you need Vagrant 1.5+, and write `vagrant up --provider=parallels` instead of `vagrant up` when building the VM for the first time. After that, Vagrant will remember your provider choice, and you won't need to include the `provider` flag again.)
-
-If the base box is not present that command fetches it first. The setup itself takes about 3 minutes in my MacBook Air. After the installation has finished, you can access the virtual machine with
+After the installation has finished, you can access the virtual machine with
 
     host $ vagrant ssh
-    Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+    Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-36-generic i686)
     ...
     vagrant@rails-dev-box:~$
 
@@ -37,23 +33,27 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 ## What's In The Box
 
+* Development tools
+
 * Git
 
-* RVM
-
-* Ruby 2.1.1 (binary RVM install)
+* Ruby 2.1
 
 * Bundler
 
 * SQLite3, MySQL, and Postgres
 
-* System dependencies for nokogiri, sqlite3, mysql, mysql2, and pg
-
 * Databases and users needed to run the Active Record test suite
 
-* Node.js for the asset pipeline
+* System dependencies for nokogiri, sqlite3, mysql, mysql2, and pg
 
 * Memcached
+
+* Redis
+
+* RabbitMQ
+
+* An ExecJS runtime
 
 ## Recommended Workflow
 
