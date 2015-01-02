@@ -12,9 +12,9 @@ apt-get -y update >/dev/null 2>&1
 
 install 'development tools' build-essential
 
-install Ruby ruby2.1 ruby2.1-dev
-update-alternatives --set ruby /usr/bin/ruby2.1 >/dev/null 2>&1
-update-alternatives --set gem /usr/bin/gem2.1 >/dev/null 2>&1
+install Ruby ruby2.2 ruby2.2-dev
+update-alternatives --set ruby /usr/bin/ruby2.2 >/dev/null 2>&1
+update-alternatives --set gem /usr/bin/gem2.2 >/dev/null 2>&1
 
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1
