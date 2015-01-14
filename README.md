@@ -29,9 +29,7 @@ After the installation has finished, you can access the virtual machine with
     ...
     vagrant@rails-dev-box:~$
 
-Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer. If you are running into issues accessing your application on your host, be sure that WEBrick or any other web server you use is bound to the IP `0.0.0.0`, instead of `127.0.0.1` so it can access all interfaces.
-
-In WEBrick you would do
+Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer. Be sure the web server is bound to the IP 0.0.0.0, instead of 127.0.0.1, so it can access all interfaces:
 
     bin/rails server -b 0.0.0.0
 
