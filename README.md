@@ -68,13 +68,13 @@ The recommended workflow is
 Just clone your Rails fork into the rails-dev-box directory on the host computer:
 
     host $ ls
-    README.md   Vagrantfile puppet
+    bootstrap.sh MIT-LICENSE README.md Vagrantfile
     host $ git clone git@github.com:<your username>/rails.git
 
 Vagrant mounts that directory as _/vagrant_ within the virtual machine:
 
     vagrant@rails-dev-box:~$ ls /vagrant
-    puppet  rails  README.md  Vagrantfile
+    bootstrap.sh MIT-LICENSE rails README.md Vagrantfile
 
 Install gem dependencies in there:
 
