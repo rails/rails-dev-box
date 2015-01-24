@@ -69,7 +69,7 @@ Just clone your Rails fork into the rails-dev-box directory on the host computer
 
     host $ ls
     README.md   Vagrantfile puppet
-    host $ git clone git@github.com:<your username>/rails.git
+    host $ git clone https://github.com/<your username>/rails.git
 
 Vagrant mounts that directory as _/vagrant_ within the virtual machine:
 
