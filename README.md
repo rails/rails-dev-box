@@ -67,6 +67,7 @@ The recommended workflow is
 
 Just clone your Rails fork into the rails-dev-box directory on the host computer:
 
+    host $ cd /vagrant
     host $ ls
     bootstrap.sh MIT-LICENSE README.md Vagrantfile
     host $ git clone git@github.com:<your username>/rails.git
