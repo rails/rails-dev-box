@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # The output of all these installation steps is noisy. With this utility
 # the progress report is nice and concise.
 function install {
