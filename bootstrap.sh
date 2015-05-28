@@ -1,18 +1,27 @@
 # The output of all these installation steps is noisy. With this utility
 # the progress report is nice and concise.
 
+
+
 # Choose what to install
-JAVA_ORACLE=true
-RUBY_WITH_RVM=true
-SQLITE=true
-POSTGRESQL=true
-MYSQL=true
+JAVA_ORACLE=false
+RUBY_WITH_RVM=false
+RUBY_WITH_RBENV=true # only install if RUBY_WITH_RVM is false
+# RUBY WILL BE INSTALLED DIRECTLY IF 'RUBY_WITH_RVM' AND 'RUBY_WITH_RBENV' ARE FALSE
+RAILS=false
+SQLITE=false
+POSTGRESQL=false
+MYSQL=false
 
 # Variables
 RUBY_VERSION=2.2.2
 RAILS_VERSION=4.2.1
 MYSQL_USER=root
 MYSQL_PASSWORD=root
+RBENV_DIR=~/.rbenv
+
+
+
 
 function install {
     echo installing $1
@@ -45,21 +54,6 @@ then
 	install SetDefaultJava8 oracle-java8-set-default
 fi
 
-if $RUBY_WITH_RVM
-then
-	echo "installing RVM with RUBY $RUBY_VERSION"
-	if ! type rvm >/dev/null 2>&1; then
-    curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-    curl -L https://get.rvm.io | bash -s stable
-    source /etc/profile.d/rvm.sh
-  fi
-	rvm requirements
-	rvm install $RUBY_VERSION
-	rvm use $RUBY_VERSION --default
-	echo "installing Rails $RAILS_VERSION"
-	gem install rails -v $RAILS_VERSION -N >/dev/null 2>&1
-fi
-
 if $SQLITE
 then
 	install SQLite sqlite3 libsqlite3-dev
@@ -86,6 +80,98 @@ GRANT ALL PRIVILEGES ON activerecord_unittest.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON activerecord_unittest2.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost';
 SQL
+fi
+
+if $RUBY_WITH_RVM
+then
+
+	echo "installing RVM with RUBY $RUBY_VERSION"
+	if ! type rvm >/dev/null 2>&1; then
+    curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+    curl -L https://get.rvm.io | bash -s stable
+    source /etc/profile.d/rvm.sh
+  fi
+	rvm requirements
+	rvm install $RUBY_VERSION
+	rvm use $RUBY_VERSION --default
+
+elif $RUBY_WITH_RBENV
+then
+
+	echo "installing Rbenv with Ruby $RUBY_VERSION"
+	cd
+	if [ -d $RBENV_DIR ]
+	then
+		echo "Folder $RBENV_DIR already exists"
+	else
+		git clone https://github.com/sstephenson/rbenv.git .rbenv
+		echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+		echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+		export PATH="$HOME/.rbenv/bin:$PATH"
+		eval "$(rbenv init -)"
+	fi
+
+	RUBY_BUILD_DIR=~/.rbenv/plugins/ruby-build
+	if [ -d $RUBY_BUILD_DIR ]
+	then
+		echo "Folder $RUBY_BUILD_DIR already exists"
+	else
+		git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+		echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+		export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+	fi
+
+	REHASH_DIR=~/.rbenv/plugins/rbenv-gem-rehash
+	if [ -d $REHASH_DIR ]
+	then
+		echo "Folder $REHASH_DIR already exists"
+	else
+		git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+	fi
+
+	echo "installing Ruby $RUBY_VERSION"
+	rbenv install $RUBY_VERSION -s
+	rbenv global $RUBY_VERSION
+
+	echo installing Bundler
+	echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+	gem install bundler -N >/dev/null 2>&1
+
+else
+	install Ruby ruby2.2 ruby2.2-dev
+	update-alternatives --set ruby /usr/bin/ruby2.2 >/dev/null 2>&1
+	update-alternatives --set gem /usr/bin/gem2.2 >/dev/null 2>&1
+
+	echo installing Bundler
+	gem install bundler -N >/dev/null 2>&1
+fi
+
+if $RAILS
+then
+	echo "installing Rails $RAILS_VERSION"
+	gem install rails -v $RAILS_VERSION -N >/dev/null 2>&1
+fi
+
+if $MYSQL
+then
+	echo installing Gem MySQL2
+	gem install mysql2 -N >/dev/null 2>&1
+fi
+if $POSTGRESQL
+then
+	echo installing Gem PG
+	gem install pg -N >/dev/null 2>&1
+fi
+
+if $RUBY_WITH_RVM
+then
+	rvm -v
+elif $RUBY_WITH_RBENV
+then
+	rbenv rehash
+	rbenv -v
+else
+	ruby -v
 fi
 
 # Needed for docs generation.
