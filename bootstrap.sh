@@ -35,6 +35,7 @@ install NodeJS nodejs
 install memcached memcached
 install Redis redis-server
 install RabbitMQ rabbitmq-server
+install ImageMagick imagemagick
 
 if $JAVA_ORACLE
 then
@@ -47,8 +48,11 @@ fi
 if $RUBY_WITH_RVM
 then
 	echo "installing RVM with RUBY $RUBY_VERSION"
-	curl -L https://get.rvm.io | bash -s stable
-	. ~/.bashrc
+	if ! type rvm >/dev/null 2>&1; then
+    curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+    curl -L https://get.rvm.io | bash -s stable
+    source /etc/profile.d/rvm.sh
+  fi
 	rvm requirements
 	rvm install $RUBY_VERSION
 	rvm use $RUBY_VERSION --default
