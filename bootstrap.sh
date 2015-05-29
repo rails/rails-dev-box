@@ -4,7 +4,6 @@
 
 
 # Choose what to install
-JAVA_ORACLE=true
 RUBY_WITH_RVM=false
 RUBY_WITH_RBENV=true # only install if RUBY_WITH_RVM is false
 # RUBY WILL BE INSTALLED DIRECTLY IF 'RUBY_WITH_RVM' AND 'RUBY_WITH_RBENV' ARE FALSE
@@ -32,7 +31,6 @@ function install {
 
 echo "updating package information"
 apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
-add-apt-repository -y ppa:webupd8team/java >/dev/null 2>&1
 add-apt-repository -y ppa:chris-lea/node.js >/dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
@@ -46,14 +44,6 @@ install memcached memcached
 install Redis redis-server
 install RabbitMQ rabbitmq-server
 install ImageMagick imagemagick
-
-if $JAVA_ORACLE
-then
-	sudo apt-get -y remove --purge openjdk-*
-	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-	install Java8 oracle-java8-installer
-	install SetDefaultJava8 oracle-java8-set-default
-fi
 
 if $SQLITE
 then
