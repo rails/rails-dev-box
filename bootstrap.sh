@@ -4,14 +4,14 @@
 
 
 # Choose what to install
-JAVA_ORACLE=false
+JAVA_ORACLE=true
 RUBY_WITH_RVM=false
 RUBY_WITH_RBENV=true # only install if RUBY_WITH_RVM is false
 # RUBY WILL BE INSTALLED DIRECTLY IF 'RUBY_WITH_RVM' AND 'RUBY_WITH_RBENV' ARE FALSE
-RAILS=false
-SQLITE=false
-POSTGRESQL=false
-MYSQL=false
+RAILS=true
+SQLITE=true
+POSTGRESQL=true
+MYSQL=true
 
 # Variables
 RUBY_VERSION=2.2.2
@@ -19,7 +19,8 @@ RAILS_VERSION=4.2.1
 MYSQL_USER=root
 MYSQL_PASSWORD=root
 RBENV_DIR=~/.rbenv
-
+RUBY_BUILD_DIR="$RBENV_DIR/plugins/ruby-build"
+REHASH_DIR="$RBENV_DIR/plugins/rbenv-gem-rehash"
 
 
 
@@ -99,43 +100,44 @@ elif $RUBY_WITH_RBENV
 then
 
 	echo "installing Rbenv with Ruby $RUBY_VERSION"
-	cd
 	if [ -d $RBENV_DIR ]
 	then
-		echo "Folder $RBENV_DIR already exists"
+		cd $RBENV_DIR
+		git pull
 	else
-		git clone https://github.com/sstephenson/rbenv.git .rbenv
+		git clone https://github.com/sstephenson/rbenv.git $RBENV_DIR
 		echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 		echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 		export PATH="$HOME/.rbenv/bin:$PATH"
 		eval "$(rbenv init -)"
 	fi
 
-	RUBY_BUILD_DIR=~/.rbenv/plugins/ruby-build
 	if [ -d $RUBY_BUILD_DIR ]
 	then
-		echo "Folder $RUBY_BUILD_DIR already exists"
+		cd $RUBY_BUILD_DIR
+		git pull
 	else
-		git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-		echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-		export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+		git clone https://github.com/sstephenson/ruby-build.git $RUBY_BUILD_DIR
+		cd $RUBY_BUILD_DIR
+		./install.sh
 	fi
 
-	REHASH_DIR=~/.rbenv/plugins/rbenv-gem-rehash
 	if [ -d $REHASH_DIR ]
 	then
-		echo "Folder $REHASH_DIR already exists"
+		cd $REHASH_DIR
+		git pull
 	else
-		git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+		git clone https://github.com/sstephenson/rbenv-gem-rehash.git $REHASH_DIR
 	fi
 
-	echo "installing Ruby $RUBY_VERSION"
 	rbenv install $RUBY_VERSION -s
 	rbenv global $RUBY_VERSION
+	rbenv rehash
 
 	echo installing Bundler
 	echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 	gem install bundler -N >/dev/null 2>&1
+	rbenv rehash
 
 else
 	install Ruby ruby2.2 ruby2.2-dev
@@ -161,17 +163,6 @@ if $POSTGRESQL
 then
 	echo installing Gem PG
 	gem install pg -N >/dev/null 2>&1
-fi
-
-if $RUBY_WITH_RVM
-then
-	rvm -v
-elif $RUBY_WITH_RBENV
-then
-	rbenv rehash
-	rbenv -v
-else
-	ruby -v
 fi
 
 # Needed for docs generation.
