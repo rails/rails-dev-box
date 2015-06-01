@@ -1,2 +1,4 @@
 .vagrant
 rails
+projects/*
+!projects/.gitkeep
