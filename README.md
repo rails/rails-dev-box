@@ -34,10 +34,13 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
     bin/rails server -b 0.0.0.0
 
 ## What's In The Box
+*Choose what to install in bootstrap.sh*
 
 * Development tools
 
 * Git
+
+* RVM, rbenv or none
 
 * Ruby 2.2
 
@@ -54,6 +57,8 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 * Redis
 
 * RabbitMQ
+
+* ImageMagick
 
 * An ExecJS runtime
 
