@@ -11,7 +11,6 @@ apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
 install 'development tools' build-essential
-install Curl curl libcurl3 libcurl3-dev
 
 install Ruby ruby2.2 ruby2.2-dev
 update-alternatives --set ruby /usr/bin/ruby2.2 >/dev/null 2>&1
