@@ -143,7 +143,7 @@ for automatic syncs. See the post linked above for details.
 
 If you're using Mac OS X or Linux you can increase the speed of Rails test suites with Vagrant's NFS synced folders.
 
-With a NFS server installed (already installed on Mac OS X), add the following to the Vagrantfile:
+With an NFS server installed (already installed on Mac OS X), add the following to the Vagrantfile:
 
     config.vm.synced_folder '.', '/vagrant', type: 'nfs'
     config.vm.network 'private_network', ip: '192.168.50.4' # ensure this is available
