@@ -52,6 +52,8 @@ SQL
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'ExecJS runtime' nodejs
 
+install libncurses5-dev
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
