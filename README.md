@@ -171,7 +171,7 @@ Error:
 
 And a known work-around (https://github.com/Varying-Vagrant-Vagrants/VVV/issues/354) can be:
 
-`sudo rm /opt/vagrant/embedded/bin/curl`
+    sudo rm /opt/vagrant/embedded/bin/curl`
 
 ## License
 
