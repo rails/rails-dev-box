@@ -154,6 +154,25 @@ Then
 
 Please check the Vagrant documentation on [NFS synced folders](http://docs.vagrantup.com/v2/synced-folders/nfs.html) for more information.
 
+## Troubleshooting
+
+On `vagrant up`, it's possible to get this error message:
+
+```
+The box 'ubuntu/yakkety64' could not be found or
+could not be accessed in the remote catalog. If this is a private
+box on HashiCorp's Atlas, please verify you're logged in via
+vagrant login. Also, please double-check the name. The expanded
+URL and error message are shown below:
+
+URL: ["https://atlas.hashicorp.com/ubuntu/yakkety64"]
+Error:
+```
+
+And a known work-around (https://github.com/Varying-Vagrant-Vagrants/VVV/issues/354) can be:
+
+`sudo rm /opt/vagrant/embedded/bin/curl`
+
 ## License
 
 Released under the MIT License, Copyright (c) 2012–<i>ω</i> Xavier Noria.
