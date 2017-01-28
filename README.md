@@ -83,6 +83,8 @@ Install gem dependencies in there:
 
 We are ready to go to edit in the host, and test in the virtual machine.
 
+Please have a look at the [Contributing to Ruby on Rails](http://edgeguides.rubyonrails.org/contributing_to_ruby_on_rails.html) guide for tips on how to run test suites, how to generate an application that uses your local checkout of Rails, etc.
+
 This workflow is convenient because in the host computer you normally have your editor of choice fine-tuned, Git configured, and SSH keys in place.
 
 ## Virtual Machine Management
