@@ -39,7 +39,7 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Git
 
-* Ruby 2.3
+* Ruby 2.4
 
 * Bundler
 
