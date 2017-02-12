@@ -56,6 +56,15 @@ install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'Blade dependencies' libncurses5-dev
 install 'ExecJS runtime' nodejs
 
+# To generate guides in Kindle format.
+install 'ImageMagick' imagemagick
+echo installing KindleGen
+kindlegen_tarball=kindlegen_linux_2.6_i386_v2_9.tar.gz
+wget -q http://kindlegen.s3.amazonaws.com/$kindlegen_tarball
+tar xzf $kindlegen_tarball kindlegen
+mv kindlegen /usr/local/bin
+rm $kindlegen_tarball
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
