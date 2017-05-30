@@ -15,6 +15,8 @@ echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
 echo updating package information
 apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
+add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /dev/null 2>&1
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - > /dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
 install 'development tools' build-essential
