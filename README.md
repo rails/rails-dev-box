@@ -25,9 +25,9 @@ That's it.
 After the installation has finished, you can access the virtual machine with
 
     host $ vagrant ssh
-    Welcome to Ubuntu 17.04 (GNU/Linux 4.10.0-21-generic x86_64)
+    Welcome to Ubuntu 17.10 (GNU/Linux 4.13.0-16-generic x86_64)
     ...
-    ubuntu@rails-dev-box:~$
+    vagrant@rails-dev-box:~$
 
 Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer. Be sure the web server is bound to the IP 0.0.0.0, instead of 127.0.0.1, so it can access all interfaces:
 
@@ -73,13 +73,13 @@ Just clone your Rails fork into the rails-dev-box directory on the host computer
 
 Vagrant mounts that directory as _/vagrant_ within the virtual machine:
 
-    ubuntu@rails-dev-box:~$ ls /vagrant
+    vagrant@rails-dev-box:~$ ls /vagrant
     bootstrap.sh MIT-LICENSE rails README.md Vagrantfile
 
 Install gem dependencies in there:
 
-    ubuntu@rails-dev-box:~$ cd /vagrant/rails
-    ubuntu@rails-dev-box:/vagrant/rails$ bundle
+    vagrant@rails-dev-box:~$ cd /vagrant/rails
+    vagrant@rails-dev-box:/vagrant/rails$ bundle
 
 We are ready to go to edit in the host, and test in the virtual machine.
 

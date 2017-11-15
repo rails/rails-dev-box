@@ -6,6 +6,11 @@ function install {
     apt-get -y install "$@" >/dev/null 2>&1
 }
 
+# Workaround for https://bugs.launchpad.net/cloud-images/+bug/1726818
+# without this the root file system size will be about 2GB
+echo expanding root file system
+sudo resize2fs /dev/sda1
+
 echo adding swap file
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
@@ -36,9 +41,9 @@ install Redis redis-server
 install RabbitMQ rabbitmq-server
 
 install PostgreSQL postgresql postgresql-contrib libpq-dev
-sudo -u postgres createuser --superuser ubuntu
-sudo -u postgres createdb -O ubuntu activerecord_unittest
-sudo -u postgres createdb -O ubuntu activerecord_unittest2
+sudo -u postgres createuser --superuser vagrant
+sudo -u postgres createdb -O vagrant activerecord_unittest
+sudo -u postgres createdb -O vagrant activerecord_unittest2
 
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
