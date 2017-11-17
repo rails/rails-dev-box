@@ -6,8 +6,11 @@ function install {
     apt-get -y install "$@" >/dev/null 2>&1
 }
 
-# Workaround for https://bugs.launchpad.net/cloud-images/+bug/1726818
-# without this the root file system size will be about 2GB
+# FIXME: This addresses an issue with Ubuntu 17.10 (Artful Aardvark). Should be
+# revisited when the base image gets upgraded.
+#
+# Workaround for https://bugs.launchpad.net/cloud-images/+bug/1726818 without
+# this the root file system size will be about 2GB.
 echo expanding root file system
 sudo resize2fs /dev/sda1
 
