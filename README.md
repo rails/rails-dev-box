@@ -33,6 +33,14 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
     bin/rails server -b 0.0.0.0
 
+## RAM and CPUs
+
+By default, the VM launches with 2 GB of RAM and 2 CPUs.
+
+These can be overridden by setting the environment variables `RAILS_DEV_BOX_RAM` and `RAILS_DEV_BOX_CPUS`, respectively. Settings on VM creation don't matter, the environment variables are checked each time the VM boots.
+
+`RAILS_DEV_BOX_RAM` has to be expressed in megabytes, so configure 4096 if you want the VM to have 4 GB of RAM.
+
 ## What's In The Box
 
 * Development tools
