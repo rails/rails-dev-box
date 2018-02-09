@@ -32,8 +32,10 @@ install Ruby ruby2.4 ruby2.4-dev
 update-alternatives --set ruby /usr/bin/ruby2.4 >/dev/null 2>&1
 update-alternatives --set gem /usr/bin/gem2.4 >/dev/null 2>&1
 
-echo installing current RubyGems
-gem update --system -N >/dev/null 2>&1
+# Locking rubygems version due to issue with Rubygems 2.7.5. Revisit installing latest
+# rubygems once https://github.com/rubygems/rubygems/issues/2180 has been addressed
+echo installing RubyGems 2.7.4
+gem update --system 2.7.4 -N >/dev/null 2>&1
 
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1
