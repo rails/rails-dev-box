@@ -47,7 +47,7 @@ These can be overridden by setting the environment variables `RAILS_DEV_BOX_RAM`
 
 * Git
 
-* Ruby 2.4
+* Ruby 2.5
 
 * Bundler
 
