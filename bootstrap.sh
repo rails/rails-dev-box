@@ -7,14 +7,6 @@ function install {
     apt-get -y install "$@" >/dev/null 2>&1
 }
 
-# FIXME: This addresses an issue with Ubuntu 17.10 (Artful Aardvark). Should be
-# revisited when the base image gets upgraded.
-#
-# Workaround for https://bugs.launchpad.net/cloud-images/+bug/1726818 without
-# this the root file system size will be about 2GB.
-echo expanding root file system
-sudo resize2fs /dev/sda1
-
 echo adding swap file
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
@@ -32,9 +24,8 @@ install Ruby ruby2.5 ruby2.5-dev
 update-alternatives --set ruby /usr/bin/ruby2.5 >/dev/null 2>&1
 update-alternatives --set gem /usr/bin/gem2.5 >/dev/null 2>&1
 
-# FIXME: Do not upgrade RubyGems, see https://github.com/rails/rails-dev-box/issues/147.
 # echo installing current RubyGems
-# gem update --system -N >/dev/null 2>&1
+gem update --system -N >/dev/null 2>&1
 
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1
