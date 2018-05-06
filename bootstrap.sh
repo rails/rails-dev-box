@@ -46,6 +46,7 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password_again passwo
 install MySQL mysql-server libmysqlclient-dev
 # Set the password in an environment variable to avoid the warning issued if set with `-p`.
 MYSQL_PWD=root mysql -uroot <<SQL
+SET PASSWORD = '';
 CREATE USER 'rails'@'localhost';
 CREATE DATABASE activerecord_unittest  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 CREATE DATABASE activerecord_unittest2 DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
