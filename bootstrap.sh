@@ -15,14 +15,10 @@ swapon /swapfile
 echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
 echo updating package information
-apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
+install Ruby ruby-full
 install 'development tools' build-essential autoconf libtool
-
-install Ruby ruby2.5 ruby2.5-dev
-update-alternatives --set ruby /usr/bin/ruby2.5 >/dev/null 2>&1
-update-alternatives --set gem /usr/bin/gem2.5 >/dev/null 2>&1
 
 # echo installing current RubyGems
 gem update --system -N >/dev/null 2>&1
