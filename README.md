@@ -10,7 +10,7 @@ This project automates the setup of a development environment for working on Rub
 
 * [VirtualBox](https://www.virtualbox.org)
 
-* [Vagrant](http://vagrantup.com)
+* [Vagrant 2](http://vagrantup.com)
 
 ## How To Build The Virtual Machine
 
