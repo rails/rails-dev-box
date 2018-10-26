@@ -55,7 +55,7 @@ These can be overridden by setting the environment variables `RAILS_DEV_BOX_RAM`
 
 * Databases and users needed to run the Active Record test suite
 
-* System dependencies for nokogiri, sqlite3, mysql, mysql2, and pg
+* System dependencies for `nokogiri`, `sqlite3`, `mysql2`, and `pg`
 
 * Memcached
 
