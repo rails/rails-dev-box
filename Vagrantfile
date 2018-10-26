@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure('2') do |config|
-  config.vm.box      = 'ubuntu/bionic64' # 18.04
+  config.vm.box      = 'ubuntu/cosmic64' # 18.10
   config.vm.hostname = 'rails-dev-box'
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000
