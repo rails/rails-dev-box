@@ -15,6 +15,8 @@ swapon /swapfile
 echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
 echo updating package information
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - >/dev/null 2>&1
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list >/dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
 install Ruby ruby-full
@@ -31,6 +33,7 @@ install SQLite sqlite3 libsqlite3-dev
 install memcached memcached
 install Redis redis-server
 install RabbitMQ rabbitmq-server
+install Yarn yarn
 
 install PostgreSQL postgresql postgresql-contrib libpq-dev
 sudo -u postgres createuser --superuser vagrant
