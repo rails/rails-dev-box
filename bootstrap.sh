@@ -14,6 +14,11 @@ mkswap /swapfile
 swapon /swapfile
 echo '/swapfile none swap defaults 0 0' >> /etc/fstab
 
+# Prevents "Warning: apt-key output should not be parsed (stdout is not a terminal)".
+export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo -E apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
@@ -53,6 +58,7 @@ SQL
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'Blade dependencies' libncurses5-dev
 install 'ExecJS runtime' nodejs
+install 'Yarn' yarn
 
 # To generate guides in Kindle format.
 install 'ImageMagick' imagemagick
