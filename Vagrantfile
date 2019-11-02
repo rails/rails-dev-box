@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure('2') do |config|
-  config.vm.box      = 'ubuntu/eoan64' # 19.10
+  config.vm.box      = 'ubuntu/disco64' # 19.04
   config.vm.hostname = 'rails-dev-box'
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000
@@ -12,7 +12,4 @@ Vagrant.configure('2') do |config|
     v.memory = ENV.fetch('RAILS_DEV_BOX_RAM', 2048).to_i
     v.cpus   = ENV.fetch('RAILS_DEV_BOX_CPUS', 2).to_i
   end
-
-  config.vm.boot_timeout = 600
-
 end
