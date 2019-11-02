@@ -76,4 +76,6 @@ install 'Poppler' poppler-utils
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
+echo "test -d /vagrant/rails && cd /vagrant/rails" >> /home/vagrant/.bashrc
+
 echo 'all set, rock on!'
