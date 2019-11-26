@@ -44,7 +44,7 @@ sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
 
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-install MySQL mysql-server libmysqlclient-dev
+install MySQL mysql-server libmysqlclient-dev libssl-dev
 # Set the password in an environment variable to avoid the warning issued if set with `-p`.
 MYSQL_PWD=root mysql -uroot <<SQL
 CREATE USER 'rails'@'localhost';
