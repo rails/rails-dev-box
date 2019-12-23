@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+export DEBIAN_FRONTEND=noninteractive
+
 # The output of all these installation steps is noisy. With this utility
 # the progress report is nice and concise.
 function install {
