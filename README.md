@@ -12,6 +12,8 @@ This project automates the setup of a development environment for working on Rub
 
 * [Vagrant 2](http://vagrantup.com)
 
+* Install the `vagrant-vbguest` plugin: `vagrant plugin install vagrant-vbguest`.
+
 ## How To Build The Virtual Machine
 
 Building the virtual machine is this easy:
