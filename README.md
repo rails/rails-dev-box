@@ -27,7 +27,7 @@ That's it.
 After the installation has finished, you can access the virtual machine with
 
     host $ vagrant ssh
-    Welcome to Ubuntu 19.04 (GNU/Linux 5.0.0-32-generic x86_64)
+    Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.4.0-26-generic x86_64)
     ...
     vagrant@rails-dev-box:~$
 
@@ -49,7 +49,7 @@ These can be overridden by setting the environment variables `RAILS_DEV_BOX_RAM`
 
 * Git
 
-* Ruby 2.5
+* Ruby 2.7
 
 * Bundler
 
