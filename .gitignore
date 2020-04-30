@@ -1,3 +1,5 @@
 .vagrant
 *.log
 rails
+activerecord-sqlserver-adapter
+.DS_Store
