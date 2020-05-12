@@ -32,6 +32,7 @@ ACCEPT_EULA=Y apt-get install -y mssql-tools unixodbc-dev
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> /home/vagrant/.bashrc
 
 # Setup test databases and users
+sleep 5
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P MSSQLadmin! <<SQL
 CREATE DATABASE [activerecord_unittest];
 CREATE DATABASE [activerecord_unittest2];
@@ -45,6 +46,24 @@ EXEC sp_addrolemember N'db_owner', N'rails';
 EXEC master..sp_addsrvrolemember @loginame = N'rails', @rolename = N'sysadmin';
 GO
 SQL
+
+# rbenv and Rubies
+install libreadline-dev libreadline-dev
+git clone https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
+mkdir -p /home/vagrant/.rbenv/plugins
+git clone https://github.com/rbenv/ruby-build.git /home/vagrant/.rbenv/plugins/ruby-build
+chown -R vagrant:vagrant /home/vagrant/.rbenv
+
+echo 'export PATH="/home/vagrant/.rbenv/bin:$PATH"' >> /home/vagrant/.bashrc
+echo 'eval "$(rbenv init -)"' >> /home/vagrant/.bashrc
+
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.5.8'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.6.6'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.7.1'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv global 2.7.1'
+
+# Install dot
+install graphviz graphviz
 
 # Misc
 echo "test -d /vagrant/activerecord-sqlserver-adapter && cd /vagrant/activerecord-sqlserver-adapter" >> /home/vagrant/.bashrc
