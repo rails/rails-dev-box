@@ -2,7 +2,7 @@
 # The output of all these installation steps is noisy. With this utility
 # the progress report is nice and concise.
 function install {
-    echo installing $1
+    echo installing "$1"
     shift
     apt-get -y install "$@" >/dev/null 2>&1
 }
