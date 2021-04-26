@@ -22,14 +22,11 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
-install Ruby ruby-full
+install Ruby ruby-full bundler
 install 'development tools' build-essential autoconf libtool
 
 # echo installing current RubyGems
 gem update --system -N >/dev/null 2>&1
-
-echo installing Bundler
-gem install bundler -N >/dev/null 2>&1
 
 install Git git
 install SQLite sqlite3 libsqlite3-dev
