@@ -55,6 +55,7 @@ SQL
 
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'Blade dependencies' libncurses5-dev
+install 'ruby-vips dependencies' libvips
 install 'ExecJS runtime' nodejs
 install 'Yarn' yarn
 
