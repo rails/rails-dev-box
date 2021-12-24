@@ -4,11 +4,11 @@
 
 **Please note this VM is _not_ designed for Rails application development with MS SQL Server, only ActiveRecord SQL Server core development.**
 
-Microsoft now supports running MS SQL Server server and the command-line tool `sqlcmd` on Linux (see https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu). This document describes how to use a virtual machine for working on the ActiveRecord SQL Server adapter itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites, including an instance of MS SQL Server running in the virtual machine. 
+Microsoft now supports running MS SQL Server server and the command-line tool `sqlcmd` on Linux (see https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu). This document describes how to use a virtual machine for working on the ActiveRecord SQL Server adapter itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites, including an instance of MS SQL Server running in the virtual machine.
 
 This project builds on the [rails-dev-box](https://github.com/rails/rails-dev-box) project with additions to support SQL Server adapter developement.
 
-The VM installs all the software required to run the Ruby on Rails tests suite too. This allows you to run the PostgreSQL/SQLite/MySQL adapter test suites alongside the SQL Server adapters tests. 
+The VM installs all the software required to run the Ruby on Rails tests suite too. This allows you to run the PostgreSQL/SQLite/MySQL adapter test suites alongside the SQL Server adapters tests.
 
 The VM uses the Ubuntu 18.04 image as that's the version supported by [Microsoft](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu).
 
@@ -37,7 +37,7 @@ After the installation has finished, you can access the virtual machine with
     ...
     vagrant@activerecord-sqlserver-adapter-dev-box:~$
 
-Port 1443 in the host computer is forwarded to port 1443 in the virtual machine. So you can connect to the 
+Port 1443 in the host computer is forwarded to port 1443 in the virtual machine. So you can connect to the
 SQL Server DBMS running on the VM through localhost:1433. [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio)
 is available on Windows/MacOS/Linux and can be used to connect to the SQL Server database.
 
@@ -86,9 +86,10 @@ SQL Server:
 * Databases and users needed to run the SQL Server adapter test suite
 
 * rbenv
-  * Ruby 2.5.8
-  * Ruby 2.6.6
-  * Ruby 2.7.1 **default Ruby version**
+  * Ruby 2.5.9
+  * Ruby 2.6.9
+  * Ruby 2.7.5
+  * Ruby 3.0.3 **default Ruby version**
 
 * Graphicviz
 

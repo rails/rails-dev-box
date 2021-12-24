@@ -58,10 +58,10 @@ echo 'export PATH="/home/vagrant/.rbenv/bin:$PATH"' >> /home/vagrant/.bashrc
 echo 'eval "$(rbenv init -)"' >> /home/vagrant/.bashrc
 
 runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.5.9'
-runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.6.7'
-runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.7.3'
-runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 3.0.1'
-runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv global 3.0.1'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.6.9'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.7.5'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 3.0.3'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv global 3.0.3'
 
 # Install dot
 install graphviz graphviz
