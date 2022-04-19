@@ -36,9 +36,9 @@ install Redis redis-server
 install RabbitMQ rabbitmq-server
 
 install PostgreSQL postgresql postgresql-contrib libpq-dev
-sudo -u postgres createuser --superuser vagrant
-sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest
-sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
+sudo -i -u postgres createuser --superuser vagrant
+sudo -i -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest
+sudo -i -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
 
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
