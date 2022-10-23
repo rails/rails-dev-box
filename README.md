@@ -27,7 +27,7 @@ That's it.
 After the installation has finished, you can access the virtual machine with
 
     host $ vagrant ssh
-    Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-25-generic x86_64)
+    Welcome to Ubuntu 22.10 (GNU/Linux 5.19.0-21-generic x86_64)
     ...
     vagrant@rails-dev-box:~$
 
