@@ -24,7 +24,7 @@ echo updating package information
 apt-get -y update >/dev/null 2>&1
 
 install Ruby ruby-full bundler
-install 'development tools' build-essential autoconf libtool
+install 'development tools' build-essential autoconf libtool libyaml-dev pkg-config
 
 # echo installing current RubyGems
 gem update --system -N >/dev/null 2>&1
@@ -63,7 +63,8 @@ install 'Yarn' yarn
 install 'ImageMagick' imagemagick
 echo installing KindleGen
 kindlegen_tarball=kindlegen_linux_2.6_i386_v2_9.tar.gz
-wget -q http://kindlegen.s3.amazonaws.com/$kindlegen_tarball
+kindlegen_directory=$(echo -n $kindlegen_tarball | sed 's/.tar.gz//' | tr '.' '_')
+wget -q https://archive.org/download/$kindlegen_directory/$kindlegen_tarball
 tar xzf $kindlegen_tarball kindlegen
 mv kindlegen /usr/local/bin
 rm $kindlegen_tarball
