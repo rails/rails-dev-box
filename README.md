@@ -86,10 +86,10 @@ SQL Server:
 * Databases and users needed to run the SQL Server adapter test suite
 
 * rbenv
-  * Ruby 2.5.9
-  * Ruby 2.6.9
-  * Ruby 2.7.5
-  * Ruby 3.0.3 **default Ruby version**
+  * Ruby 2.7.7
+  * Ruby 3.0.5
+  * Ruby 3.1.3
+  * Ruby 3.2.1 **default Ruby version**
 
 * Graphicviz
 
