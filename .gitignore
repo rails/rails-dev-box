@@ -3,3 +3,4 @@
 rails
 activerecord-sqlserver-adapter
 .DS_Store
+.idea
