@@ -48,7 +48,9 @@ GO
 SQL
 
 # rbenv and Rubies
-install libreadline-dev libreadline-dev
+install 'Ruby dependency' libreadline-dev
+install 'Ruby 3.2 dependency' libyaml-dev
+
 git clone https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
 mkdir -p /home/vagrant/.rbenv/plugins
 git clone https://github.com/rbenv/ruby-build.git /home/vagrant/.rbenv/plugins/ruby-build
@@ -60,6 +62,7 @@ echo 'eval "$(rbenv init -)"' >> /home/vagrant/.bashrc
 runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 2.7.7'
 runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 3.0.5'
 runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 3.1.3'
+runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv install 3.2.1'
 runuser -l vagrant -c '/home/vagrant/.rbenv/bin/rbenv global 3.2.1'
 
 # Install dot
