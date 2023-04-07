@@ -27,7 +27,7 @@ That's it.
 After the installation has finished, you can access the virtual machine with
 
     host $ vagrant ssh
-    Welcome to Ubuntu 22.10 (GNU/Linux 5.19.0-21-generic x86_64)
+    Welcome to Ubuntu 23.04 (GNU/Linux 6.2.0-20-generic x86_64)
     ...
     vagrant@rails-dev-box:~$
 
@@ -49,7 +49,7 @@ These can be overridden by setting the environment variables `RAILS_DEV_BOX_RAM`
 
 * Git
 
-* Ruby 3.0
+* Ruby 3.1
 
 * Bundler
 
