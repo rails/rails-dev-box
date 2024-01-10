@@ -23,7 +23,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
-install Ruby ruby-full bundler
+install Ruby ruby-full bundler libyaml-dev
 install 'development tools' build-essential autoconf libtool
 
 # echo installing current RubyGems
