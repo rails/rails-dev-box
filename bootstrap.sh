@@ -30,7 +30,7 @@ install 'development tools' build-essential autoconf libtool
 gem update --system -N >/dev/null 2>&1
 
 install Git git
-install SQLite sqlite3 libsqlite3-dev
+install SQLite sqlite3 libsqlite3-dev pkg-config
 install memcached memcached
 install Redis redis-server
 install RabbitMQ rabbitmq-server
@@ -53,6 +53,7 @@ GRANT ALL PRIVILEGES ON activerecord_unittest2.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost';
 SQL
 
+install 'Psych dependencies' libyaml-dev
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'Blade dependencies' libncurses5-dev
 install 'ruby-vips dependencies' libvips
