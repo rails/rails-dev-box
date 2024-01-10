@@ -59,15 +59,6 @@ install 'ruby-vips dependencies' libvips
 install 'ExecJS runtime' nodejs
 install 'Yarn' yarn
 
-# To generate guides in Kindle format.
-install 'ImageMagick' imagemagick
-echo installing KindleGen
-kindlegen_tarball=kindlegen_linux_2.6_i386_v2_9.tar.gz
-wget -q http://kindlegen.s3.amazonaws.com/$kindlegen_tarball
-tar xzf $kindlegen_tarball kindlegen
-mv kindlegen /usr/local/bin
-rm $kindlegen_tarball
-
 install 'MuPDF' mupdf mupdf-tools
 install 'FFmpeg' ffmpeg
 install 'Poppler' poppler-utils
