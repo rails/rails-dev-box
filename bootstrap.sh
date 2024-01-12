@@ -52,6 +52,8 @@ GRANT ALL PRIVILEGES ON activerecord_unittest.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON activerecord_unittest2.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost';
 SQL
+# To address `unable to connect to /tmp/mysql.sock` for trilogy
+echo "export MYSQL_SOCK=/var/run/mysqld/mysqld.sock" >> /home/vagrant/.bashrc
 
 install 'Psych dependencies' libyaml-dev
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
