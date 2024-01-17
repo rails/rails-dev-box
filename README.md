@@ -22,6 +22,11 @@ Building the virtual machine is this easy:
     host $ cd rails-dev-box
     host $ vagrant up
 
+If prompted for login credentials in the **VirtualBox VM**, enter:  
+  
+Username: `vagrant`  
+Password: `vagrant`
+
 That's it.
 
 After the installation has finished, you can access the virtual machine with
