@@ -82,6 +82,9 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.g
 apt-get -y update >/dev/null 2>&1
 install 'Google Chrome' google-chrome-stable
 
+install 'psych dependencies' libyaml-dev
+install 'readline-ext dependencies' libreadline-dev
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
