@@ -23,11 +23,15 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
-install Ruby ruby-full bundler libyaml-dev
+install 'Ruby build dependencies' libyaml-dev libssl-dev libreadline-dev zlib1g-dev
 install 'development tools' build-essential autoconf libtool
 
-# echo installing current RubyGems
-gem update --system -N >/dev/null 2>&1
+echo installing mise
+curl -fsSL https://mise.run | HOME=/home/vagrant sudo -u vagrant bash
+echo 'eval "$(/home/vagrant/.local/bin/mise activate bash)"' >> /home/vagrant/.bashrc
+
+echo installing Ruby via mise
+sudo -u vagrant HOME=/home/vagrant /home/vagrant/.local/bin/mise use --global ruby@4 >/dev/null 2>&1
 
 install Git git
 install SQLite sqlite3 libsqlite3-dev pkg-config
@@ -52,10 +56,14 @@ GRANT ALL PRIVILEGES ON activerecord_unittest.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON activerecord_unittest2.* to 'rails'@'localhost';
 GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost';
 SQL
-# To address `unable to connect to /tmp/mysql.sock` for trilogy
-echo "export MYSQL_SOCK=/var/run/mysqld/mysqld.sock" >> /home/vagrant/.bashrc
+# To address `unable to connect to /tmp/mysql.sock` for trilogy,
+# and to pass MySQL root password in railties tests.
+# /etc/environment is parsed by PAM for login sessions to expose these variables broadly.
+cat >> /etc/environment <<'ENV'
+MYSQL_SOCK=/var/run/mysqld/mysqld.sock
+MYSQL_CODESPACES=1
+ENV
 
-install 'Psych dependencies' libyaml-dev
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 install 'Blade dependencies' libncurses5-dev
 install 'ruby-vips dependencies' libvips
@@ -68,9 +76,14 @@ install 'Poppler' poppler-utils
 install 'tzdata-legacy' tzdata-legacy
 install 'ImageMagick' imagemagick
 
+echo installing Google Chrome
+curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrome-linux-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+apt-get -y update >/dev/null 2>&1
+install 'Google Chrome' google-chrome-stable
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 echo "test -d /vagrant/rails && cd /vagrant/rails" >> /home/vagrant/.bashrc
-
 echo 'all set, rock on!'
