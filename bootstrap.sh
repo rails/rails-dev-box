@@ -81,6 +81,15 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.g
 apt-get -y update >/dev/null 2>&1
 install 'Google Chrome' google-chrome-stable
 
+echo installing ChromeDriver
+CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+apt-get -y install unzip >/dev/null 2>&1
+curl -fsSL -o /tmp/chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"
+unzip -o /tmp/chromedriver.zip -d /tmp/
+mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+chmod +x /usr/local/bin/chromedriver
+rm -rf /tmp/chromedriver.zip /tmp/chromedriver-linux64
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
