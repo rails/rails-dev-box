@@ -58,10 +58,11 @@ GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost
 SQL
 # To address `unable to connect to /tmp/mysql.sock` for trilogy,
 # and to pass MySQL root password in railties tests.
+# /etc/environment is parsed by PAM for all sessions to expose these variables broadly.
 # MYSQL_CODESPACES=1 tells railties tests to use 'root' as the MySQL root password.
-cat >> /home/vagrant/.bashrc <<'ENV'
-export MYSQL_SOCK=/var/run/mysqld/mysqld.sock
-export MYSQL_CODESPACES=1
+cat >> /etc/environment <<'ENV'
+MYSQL_SOCK=/var/run/mysqld/mysqld.sock
+MYSQL_CODESPACES=1
 ENV
 
 install 'Nokogiri dependencies' libxml2-dev libxslt1-dev

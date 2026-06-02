@@ -91,6 +91,10 @@ Install gem dependencies in there:
     vagrant@rails-dev-box:~$ cd /vagrant/rails
     vagrant@rails-dev-box:/vagrant/rails$ bundle
 
+Some Rails components (e.g. Action Cable) include JavaScript packages. Install their dependencies before running tests:
+
+    vagrant@rails-dev-box:/vagrant/rails$ cd actioncable && yarn install
+
 We are ready to go to edit in the host, and test in the virtual machine.
 
 Please have a look at the [Contributing to Ruby on Rails](http://edgeguides.rubyonrails.org/contributing_to_ruby_on_rails.html) guide for tips on how to run test suites, how to generate an application that uses your local checkout of Rails, etc.
