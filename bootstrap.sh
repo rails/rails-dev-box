@@ -91,6 +91,9 @@ mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 chmod +x /usr/local/bin/chromedriver
 rm -rf /tmp/chromedriver.zip /tmp/chromedriver-linux64
 
+install 'psych dependencies' libyaml-dev
+install 'readline-ext dependencies' libreadline-dev
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
